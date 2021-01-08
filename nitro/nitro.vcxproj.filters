@@ -19,10 +19,120 @@
     <Filter Include="Test Source Files">
       <UniqueIdentifier>{b6579c0e-bfe8-4b51-a187-60404b74ee71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Any">
+      <UniqueIdentifier>{f0392f57-51f8-4dc9-97a3-b81564a6f838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Functions">
+      <UniqueIdentifier>{a72974c4-fac4-4d9d-b801-d13def8aac60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Reactive">
+      <UniqueIdentifier>{179e3bd4-fe02-4d7f-b2c3-639b6eb8d1b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Struct">
+      <UniqueIdentifier>{8784fcff-f52c-416a-b6f4-8a214819be53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Header Files\Any">
+      <UniqueIdentifier>{a853a5d0-5bcd-465b-82a6-3dffb5baa298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Header Files\Functions">
+      <UniqueIdentifier>{72b06555-60e9-4409-a99e-73b6d6a528d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Header Files\Reactive">
+      <UniqueIdentifier>{3d0bbcbf-74bb-4101-ac26-4038e54e4683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Header Files\Struct">
+      <UniqueIdentifier>{19558d27-8bc0-4ec7-9c03-6af01d816423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Source Files\Any">
+      <UniqueIdentifier>{82739f87-9db2-42b4-b145-3e1617770a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Source Files\Functions">
+      <UniqueIdentifier>{3e1422de-17a3-4af0-b792-303b91900ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Source Files\Struct">
+      <UniqueIdentifier>{3bed952f-5fd6-4645-8fb4-13f0598a4dbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Source Files\Reactive">
+      <UniqueIdentifier>{89423a92-d04d-44fb-b078-e3c3909887d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Allocator">
+      <UniqueIdentifier>{32fab255-14c2-421b-b489-35537f8e9d5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\test\test.cpp">
-      <Filter>Test Source Files</Filter>
+    <ClInclude Include="src\main\Any\AnimatedAny.h">
+      <Filter>Header Files\Any</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Any\Reactive.h">
+      <Filter>Header Files\Any</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Functions\math_ext.h">
+      <Filter>Header Files\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Functions\queue_ext.h">
+      <Filter>Header Files\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Struct\Range.h">
+      <Filter>Header Files\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Struct\Vector.h">
+      <Filter>Header Files\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Reactive\BinaryReactive.h">
+      <Filter>Header Files\Reactive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\Reactive\UnaryReactive.h">
+      <Filter>Header Files\Reactive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Any\AnimatedAny.test.h">
+      <Filter>Test Header Files\Any</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Any\Reactive.test.h">
+      <Filter>Test Header Files\Any</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Functions\math_ext.test.h">
+      <Filter>Test Header Files\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Functions\queue_ext.test.h">
+      <Filter>Test Header Files\Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Struct\Vector.test.h">
+      <Filter>Test Header Files\Struct</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Reactive\BinaryReactive.test.h">
+      <Filter>Test Header Files\Reactive</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test\Reactive\UnaryReactive.test.h">
+      <Filter>Test Header Files\Reactive</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\test\Functions\math_ext.test.cpp">
+      <Filter>Test Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Functions\queue_ext.test.cpp">
+      <Filter>Test Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Functions\test.cpp">
+      <Filter>Test Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Struct\Vector.test.cpp">
+      <Filter>Test Source Files\Struct</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Reactive\BinaryReactive.test.cpp">
+      <Filter>Test Source Files\Reactive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Reactive\UnaryReactive.test.cpp">
+      <Filter>Test Source Files\Reactive</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Any\AnimatedAny.test.cpp">
+      <Filter>Test Source Files\Any</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Any\Reactive.test.cpp">
+      <Filter>Test Source Files\Any</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\Allocator\linear_allocator.h">
+      <Filter>Header Files\Allocator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
