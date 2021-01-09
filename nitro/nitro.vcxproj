@@ -26,6 +26,34 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\main\Any\AnimatedAny.h" />
+    <ClInclude Include="src\main\Any\Reactive.h" />
+    <ClInclude Include="src\main\Functions\math_ext.h" />
+    <ClInclude Include="src\main\Functions\queue_ext.h" />
+    <ClInclude Include="src\main\Reactive\BinaryReactive.h" />
+    <ClInclude Include="src\main\Reactive\UnaryReactive.h" />
+    <ClInclude Include="src\main\Struct\Range.h" />
+    <ClInclude Include="src\main\Struct\Vector.h" />
+    <ClInclude Include="src\test\Any\AnimatedAny.test.h" />
+    <ClInclude Include="src\test\Any\Reactive.test.h" />
+    <ClInclude Include="src\test\Functions\math_ext.test.h" />
+    <ClInclude Include="src\test\Functions\queue_ext.test.h" />
+    <ClInclude Include="src\test\Reactive\BinaryReactive.test.h" />
+    <ClInclude Include="src\test\Reactive\UnaryReactive.test.h" />
+    <ClInclude Include="src\test\Struct\Vector.test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main\Allocator\linear_allocator.h" />
+    <ClCompile Include="src\test\Any\AnimatedAny.test.cpp" />
+    <ClCompile Include="src\test\Any\Reactive.test.cpp" />
+    <ClCompile Include="src\test\Functions\math_ext.test.cpp" />
+    <ClCompile Include="src\test\Functions\queue_ext.test.cpp" />
+    <ClCompile Include="src\test\Functions\test.cpp" />
+    <ClCompile Include="src\test\Reactive\BinaryReactive.test.cpp" />
+    <ClCompile Include="src\test\Reactive\UnaryReactive.test.cpp" />
+    <ClCompile Include="src\test\Struct\Vector.test.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -134,7 +162,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=5304u;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -187,7 +215,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=8168u;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -220,9 +248,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\test\test.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,0 +1,57 @@
+#ifndef II887522_NITRO_BINARY_REACTIVE_H
+#define II887522_NITRO_BINARY_REACTIVE_H
+
+#include "../Any/Reactive.h"
+#include <vector>
+#include <functional>
+
+using std::vector;
+using std::function;
+
+namespace ii887522::nitro
+{
+	// Not Thread Safe
+	template <typename R, typename T, typename U> class BinaryReactive final : public Reactive<T>
+	{
+		// remove copy semantics
+		BinaryReactive(const BinaryReactive&) = delete;
+		BinaryReactive& operator=(const BinaryReactive&) = delete;
+
+		// remove move semantics
+		BinaryReactive(BinaryReactive&&) = delete;
+		BinaryReactive& operator=(BinaryReactive&&) = delete;
+
+		vector<Reactive<T>*> children;
+		vector<function<R(const T*const, const U*const)>> functions;
+		vector<Reactive<T>*> thats;
+
+	public:
+		explicit constexpr BinaryReactive(const T& value) : Reactive<T>{ value } { }
+
+		explicit constexpr BinaryReactive(BinaryReactive<R, T, U>*const leftParent, BinaryReactive<R, T, U>*const rightParent,
+			const function<R(const T*const, const U*const)>& function) :
+			Reactive<T>{ function(leftParent ? &leftParent->get() : nullptr, rightParent ? &rightParent->get() : nullptr) }
+		{
+			if (leftParent)
+			{
+				leftParent->children.push_back(this);
+				leftParent->functions.push_back(function);
+				leftParent->thats.push_back(rightParent);
+			}
+			if (rightParent)
+			{
+				rightParent->children.push_back(this);
+				rightParent->functions.push_back(function);
+				rightParent->thats.push_back(leftParent);
+			}
+		}
+
+		virtual void set(const T& value, const int ignoredHandlerI = -1) override
+		{
+			Reactive<T>::set(value, ignoredHandlerI);
+			for (auto i{ 0u }; i != children.size(); ++i) children[i]->set(functions[i](&this->get(), thats[i] ? &thats[i]->get() : nullptr));
+		}
+	};
+}
+
+#endif
