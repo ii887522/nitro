@@ -38,9 +38,8 @@ namespace ii887522::nitro
 			explicit constexpr Builder(const T& value, const function<void()>& onAnimationEnd = []() { }) : value{ value }, duration{ 0u },
 				hasSetDuration{ false }, onAnimationEnd{ onAnimationEnd } { }
 
-			// Animation duration
+			// Animation duration. It must be called at least 1 time before building AnimatedAny<T> object.
 			// Param p_value: it must not be assigned to 0
-			// Must Call Time(s): At least 1
 			constexpr Builder& setDuration(const unsigned int p_value)
 			{
 				duration = p_value;
@@ -48,7 +47,7 @@ namespace ii887522::nitro
 				return *this;
 			}
 
-			// Must Call Time(s): At least 1
+            // It must be called to build AnimatedAny<T> object
 			AnimatedAny<T> build()
 			{
 				if (hasSetDuration) return AnimatedAny{ *this };
