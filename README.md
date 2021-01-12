@@ -8,7 +8,7 @@ It is a general purpose C++ library that can help developers create various kind
 - [Build custom-node docker image](https://gitlab.com/ii887522/nitro#build-custom-node-docker-image)
 - [Build ms-build-tools docker image](https://gitlab.com/ii887522/nitro#build-ms-build-tools-docker-image)
 - [Install dependencies](https://gitlab.com/ii887522/nitro#install-dependencies)
-- [Set correct cpplint executable path in .vscode/settings.json](https://gitlab.com/ii887522/nitro#set-correct-cpplint-executable-path-in-vscode/settings-json)
+- [Set correct cpplint executable path in .vscode/settings.json](https://gitlab.com/ii887522/nitro#set-correct-cpplint-executable-path-in-vscodesettingsjson)
 - [Build project](https://gitlab.com/ii887522/nitro#build-project)
 - [Deploy project](https://gitlab.com/ii887522/nitro#deploy-project)
 
