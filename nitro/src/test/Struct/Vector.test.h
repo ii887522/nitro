@@ -1,12 +1,15 @@
+// Copyright ii887522
+
 #ifdef TEST
 
-#ifndef II887522_NITRO_VECTOR_TEST_H
-#define II887522_NITRO_VECTOR_TEST_H
+#ifndef NITRO_SRC_TEST_STRUCT_VECTOR_TEST_H_
+#define NITRO_SRC_TEST_STRUCT_VECTOR_TEST_H_
 
-namespace ii887522::nitro
-{
-	void testVector();
-}
+namespace ii887522::nitro {
+
+void testVector();
+
+}  // namespace ii887522::nitro
 
 #endif
-#endif
+#endif  // NITRO_SRC_TEST_STRUCT_VECTOR_TEST_H_

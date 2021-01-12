@@ -1,24 +1,26 @@
-#ifndef II887522_NITRO_RANGE_H
-#define II887522_NITRO_RANGE_H
+// Copyright ii887522
 
-namespace ii887522::nitro
-{
-	template <typename T> struct Range final
-	{
-		// remove copy semantics
-		Range(const Range&) = delete;
-		Range& operator=(const Range&) = delete;
+#ifndef NITRO_SRC_MAIN_STRUCT_RANGE_H_
+#define NITRO_SRC_MAIN_STRUCT_RANGE_H_
 
-		// remove move semantics
-		Range(Range&&) = delete;
-		Range& operator=(Range&&) = delete;
+namespace ii887522::nitro {
 
-		const T min;
-		const T max;
+template <typename T> struct Range final {
+  // remove copy semantics
+  Range(const Range&) = delete;
+  Range& operator=(const Range&) = delete;
 
-	public:
-		explicit constexpr Range(const T& min, const T& max) : min{ min }, max{ max } { }
-	};
-}
+  // remove move semantics
+  Range(Range&&) = delete;
+  Range& operator=(Range&&) = delete;
 
-#endif
+  const T min;
+  const T max;
+
+ public:
+  explicit constexpr Range(const T& min, const T& max) : min{ min }, max{ max } { }
+};
+
+}  // namespace ii887522::nitro
+
+#endif  // NITRO_SRC_MAIN_STRUCT_RANGE_H_
