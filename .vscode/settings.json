@@ -1,0 +1,5 @@
+{
+  "cpplint.cpplintPath": "",
+  "cpplint.lintMode": "workspace",
+  "cpplint.lineLength": 256
+}
