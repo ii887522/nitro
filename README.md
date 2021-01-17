@@ -105,5 +105,5 @@ build
 
 ## Deploy project
 ```sh
-deploy <access-token>
+deploy <version> <access-token>
 ```
