@@ -37,6 +37,7 @@ constexpr static size_t getAlignedDataSize(const size_t dataSize, const size_t s
   return (dataSize / alignmentRequirement + 1u) * alignmentRequirement;
 }
 
+#ifdef ALLOCATOR_IMPLEMENTATIONS
 // Not Thread Safe
 static void* longTermAlloc(const size_t size) {
   longTermDataSize = getAlignedDataSize(longTermDataSize, size);
@@ -63,6 +64,7 @@ static void* shortTermAlloc(const size_t size) {
   return nullptr;
 #endif
 }
+#endif
 
 #ifdef SHORT_TERM_ALLOCATOR_SIZE
 constexpr void beginShortTermAlloc() {
@@ -77,22 +79,34 @@ constexpr void endShortTermAlloc() {
 
 }  // namespace ii887522::nitro
 
+#ifdef ALLOCATOR_IMPLEMENTATIONS
 using ii887522::nitro::Term;
 using ii887522::nitro::term;
 using ii887522::nitro::longTermAlloc;
 using ii887522::nitro::shortTermAlloc;
+#endif
 
 // Not Thread Safe
-void* operator new(const size_t size) {
+void* operator new(const size_t size)
+#ifdef ALLOCATOR_IMPLEMENTATIONS
+{
   switch (term) {
     case Term::LONG: return longTermAlloc(size);
     case Term::SHORT: return shortTermAlloc(size);
   }
   throw bad_alloc{ };
 }
+#else
+;  // NOLINT(whitespace/semicolon)
+#endif
 
 // Not Thread Safe
-void operator delete(void*const) { }
+void operator delete(void* const)
+#ifdef ALLOCATOR_IMPLEMENTATIONS
+{ }
+#else
+;  // NOLINT(whitespace/semicolon)
+#endif
 
 #endif
 #endif  // NITRO_SRC_MAIN_ALLOCATOR_LINEAR_ALLOCATOR_H_
