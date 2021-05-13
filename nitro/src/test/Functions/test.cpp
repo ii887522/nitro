@@ -2,6 +2,9 @@
 
 #ifdef TEST
 
+#define ALLOCATOR_IMPLEMENTATIONS
+#include "../../main/Any/allocator.h"
+
 #include "../Struct/Vector.test.h"
 #include "../Functions/math_ext.test.h"
 #include "../Any/AnimatedAny.test.h"
