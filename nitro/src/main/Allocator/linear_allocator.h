@@ -24,6 +24,7 @@ enum class Term : unsigned int {
   LONG, SHORT
 };
 
+#ifdef ALLOCATOR_IMPLEMENTATIONS
 static char longTermData[LONG_TERM_ALLOCATOR_SIZE];
 static size_t longTermDataSize{ 0u };
 #ifdef SHORT_TERM_ALLOCATOR_SIZE
@@ -31,6 +32,7 @@ static char shortTermData[SHORT_TERM_ALLOCATOR_SIZE];
 static size_t shortTermDataSize{ 0u };
 #endif
 static Term term{ Term::LONG };
+#endif
 
 constexpr static size_t getAlignedDataSize(const size_t dataSize, const size_t size) {
   const auto alignmentRequirement{ min(size, alignof(max_align_t)) };
@@ -67,14 +69,24 @@ static void* shortTermAlloc(const size_t size) {
 #endif
 
 #ifdef SHORT_TERM_ALLOCATOR_SIZE
-constexpr void beginShortTermAlloc() {
+void beginShortTermAlloc()
+#ifdef ALLOCATOR_IMPLEMENTATIONS
+{
   term = Term::SHORT;
 }
+#else
+;  // NOLINT(whitespace/semicolon)
+#endif
 
-constexpr void endShortTermAlloc() {
+void endShortTermAlloc()
+#ifdef ALLOCATOR_IMPLEMENTATIONS
+{
   shortTermDataSize = 0u;
   term = Term::LONG;
 }
+#else
+;  // NOLINT(whitespace/semicolon)
+#endif
 #endif
 
 }  // namespace ii887522::nitro
