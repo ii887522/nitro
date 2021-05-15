@@ -4,7 +4,10 @@
 #define NITRO_SRC_MAIN_FUNCTIONS_MATH_EXT_H_
 
 #include <algorithm>
+#include <string>
 #include "../Struct/Range.h"
+
+using std::string;
 
 namespace ii887522::nitro {
 
@@ -28,6 +31,24 @@ template <typename T> constexpr T min(const T& l, const T& r) {
 
 template <typename T> constexpr T max(const T& l, const T& r) {
   return l > r ? l : r;
+}
+
+constexpr bool isDigit(const char ch) {
+  return ch >= '0' && ch <= '9';
+}
+
+bool isUint(const string&);
+
+constexpr unsigned int parseUint(const char ch) {
+  return ch - '0';
+}
+
+unsigned int parseUint(const string& uintStr);
+
+// Power of Two is a number that is equal to 2^n where n is an integer.
+template <typename T> bool isPowerOfTwo(const T& n) {
+  const auto power{ log2f(static_cast<float>(n)) };
+  return power == static_cast<int>(power);
 }
 
 }  // namespace ii887522::nitro
