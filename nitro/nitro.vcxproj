@@ -30,27 +30,38 @@
     <ClInclude Include="src\main\Any\allocator.h" />
     <ClInclude Include="src\main\Any\AnimatedAny.h" />
     <ClInclude Include="src\main\Any\Reactive.h" />
+    <ClInclude Include="src\main\Functions\fs_ext.h" />
     <ClInclude Include="src\main\Functions\math_ext.h" />
     <ClInclude Include="src\main\Functions\queue_ext.h" />
+    <ClInclude Include="src\main\Functions\string_ext.h" />
+    <ClInclude Include="src\main\Functions\util.h" />
     <ClInclude Include="src\main\Reactive\BinaryReactive.h" />
     <ClInclude Include="src\main\Reactive\UnaryReactive.h" />
     <ClInclude Include="src\main\Struct\Range.h" />
     <ClInclude Include="src\main\Struct\Vector.h" />
     <ClInclude Include="src\test\Any\AnimatedAny.test.h" />
     <ClInclude Include="src\test\Any\Reactive.test.h" />
+    <ClInclude Include="src\test\Functions\fs_ext.test.h" />
     <ClInclude Include="src\test\Functions\math_ext.test.h" />
     <ClInclude Include="src\test\Functions\queue_ext.test.h" />
+    <ClInclude Include="src\test\Functions\string_ext.test.h" />
+    <ClInclude Include="src\test\Functions\util.test.h" />
     <ClInclude Include="src\test\Reactive\BinaryReactive.test.h" />
     <ClInclude Include="src\test\Reactive\UnaryReactive.test.h" />
     <ClInclude Include="src\test\Struct\Vector.test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\Allocator\linear_allocator.h" />
+    <ClCompile Include="src\main\Functions\math_ext.cpp" />
+    <ClCompile Include="src\main\Functions\string_ext.cpp" />
     <ClCompile Include="src\test\Any\AnimatedAny.test.cpp" />
     <ClCompile Include="src\test\Any\Reactive.test.cpp" />
+    <ClCompile Include="src\test\Functions\fs_ext.test.cpp" />
     <ClCompile Include="src\test\Functions\math_ext.test.cpp" />
     <ClCompile Include="src\test\Functions\queue_ext.test.cpp" />
+    <ClCompile Include="src\test\Functions\string_ext.test.cpp" />
     <ClCompile Include="src\test\Functions\test.cpp" />
+    <ClCompile Include="src\test\Functions\util.test.cpp" />
     <ClCompile Include="src\test\Reactive\BinaryReactive.test.cpp" />
     <ClCompile Include="src\test\Reactive\UnaryReactive.test.cpp" />
     <ClCompile Include="src\test\Struct\Vector.test.cpp" />
@@ -163,7 +174,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=5304u;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=16384u;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -216,7 +227,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=8168u;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=32768u;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
