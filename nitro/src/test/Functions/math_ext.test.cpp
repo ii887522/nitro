@@ -103,12 +103,72 @@ constexpr static void testMax() {
   static_assert(max(1u, 2u) == 2u);
 }
 
+constexpr static void testIsDigit() {
+  static_assert(!isDigit('/'));
+  static_assert(isDigit('0'));
+  static_assert(isDigit('5'));
+  static_assert(isDigit('9'));
+  static_assert(!isDigit(':'));
+}
+
+static void testIsUint() {
+  assert(!isUint("/"));
+  assert(isUint("0"));
+  assert(isUint("5"));
+  assert(isUint("9"));
+  assert(!isUint(":"));
+  assert(!isUint(":/"));
+  assert(!isUint(":0"));
+  assert(!isUint(":9"));
+  assert(!isUint("::"));
+  assert(!isUint(":5"));
+  assert(!isUint("9/"));
+  assert(isUint("95"));
+  assert(!isUint("95/"));
+  assert(isUint("950"));
+  assert(isUint("955"));
+  assert(isUint("959"));
+  assert(!isUint("95:"));
+}
+
+constexpr static void testParseUintFromChar() {
+  static_assert(parseUint('0') == 0u);
+  static_assert(parseUint('1') == 1u);
+  static_assert(parseUint('2') == 2u);
+}
+
+static void testParseUintFromString() {
+  assert(parseUint("0") == 0u);
+  assert(parseUint("1") == 1u);
+  assert(parseUint("2") == 2u);
+  assert(parseUint("20") == 20u);
+  assert(parseUint("21") == 21u);
+  assert(parseUint("31") == 31u);
+  assert(parseUint("310") == 310u);
+  assert(parseUint("311") == 311u);
+  assert(parseUint("321") == 321u);
+  assert(parseUint("421") == 421u);
+}
+
+static void testIsPowerOfTwo() {
+  assert(isPowerOfTwo(1u));
+  assert(isPowerOfTwo(2u));
+  assert(!isPowerOfTwo(3u));
+  assert(isPowerOfTwo(4u));
+  assert(!isPowerOfTwo(5u));
+}
+
 void testMathExt() {
   testClamp();
   testIsOverlapX();
   testIsOverlapY();
   testMin();
   testMax();
+  testIsDigit();
+  testIsUint();
+  testParseUintFromChar();
+  testParseUintFromString();
+  testIsPowerOfTwo();
 }
 
 }  // namespace ii887522::nitro
