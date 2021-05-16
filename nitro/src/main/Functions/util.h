@@ -22,7 +22,7 @@ template <typename T> constexpr void swap(T& l, T& r) {
 
 // Param objects: it must not be assigned to nullptr or integer and must not be an empty vector
 // Param indices: min must be lower than objects.size(), max must be higher than or equal to min,
-//  max can be higher than or equal to objects.size()
+//  max can be higher than or equal to objects.size() which means until the end of objects need to be sorted
 // Param compare: it returns true if two objects passed in needs to be sorted
 template <typename T, template <typename> typename U> void insertionSort(U<T>*const objects, const Range<unsigned int>& indices = Range{ 0u, UINT_MAX },
   const function<bool(const T&, const T&)>& compare = [](const T& l, const T& r) {
@@ -76,6 +76,7 @@ template <typename T, template <typename> typename U> void mergeSort(U<T>*const 
 // Param runSize:
 //  it is a number of consecutive items in objects that will become sorted
 //  it must be higher than 0
+//  it can be higher than the size of objects which means the whole objects will become sorted
 // Param compare: it returns true if two objects passed in needs to be sorted
 template <typename T, template <typename> typename U> void insertionSorts(U<T>*const objects, const unsigned int runSize = UINT_MAX, const function<bool(const T&, const T&)>& compare =
   [](const T& l, const T& r) {
