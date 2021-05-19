@@ -30,6 +30,9 @@ template <typename T, template <typename> typename U> void write(const string& f
   file.close();
 }
 
+// Param path: it must ends with either '/' or '\\'
+void emptyDir(const string& path);
+
 }  // namespace ii887522::nitro
 
 #endif  // NITRO_SRC_MAIN_FUNCTIONS_FS_EXT_H_

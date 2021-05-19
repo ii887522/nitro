@@ -21,16 +21,18 @@ static void testRead() {
     assert((read<char, vector>("res/test/a.dat").size() == 0u));
     {
       const vector<char> str{ read<char, vector>("res/test/b.dat") };
-      assert(str.size() == 2u);
+      assert(str.size() == 3u);
       assert(str[0u] == 'a');
-      assert(str[1u] == '\n');
+      assert(str[1u] == '\r');
+      assert(str[2u] == '\n');
     }
     {
       const vector<char> str{ read<char, vector>("res/test/c.dat") };
-      assert(str.size() == 3u);
+      assert(str.size() == 4u);
       assert(str[0u] == 'a');
       assert(str[1u] == 'b');
-      assert(str[2u] == '\n');
+      assert(str[2u] == '\r');
+      assert(str[3u] == '\n');
     }
     {
       const vector<unsigned int> ns{ read<unsigned int, vector>("res/test/d.dat") };
