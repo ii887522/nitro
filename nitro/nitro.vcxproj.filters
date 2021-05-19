@@ -54,6 +54,9 @@
     <Filter Include="Header Files\Allocator">
       <UniqueIdentifier>{32fab255-14c2-421b-b489-35537f8e9d5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Functions">
+      <UniqueIdentifier>{92726427-7da4-410e-aed0-fd3baf3e765e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\Any\AnimatedAny.h">
@@ -151,12 +154,6 @@
     <ClCompile Include="src\main\Allocator\linear_allocator.h">
       <Filter>Header Files\Allocator</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\Functions\math_ext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main\Functions\string_ext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\test\Functions\fs_ext.test.cpp">
       <Filter>Test Source Files\Functions</Filter>
     </ClCompile>
@@ -165,6 +162,15 @@
     </ClCompile>
     <ClCompile Include="src\test\Functions\util.test.cpp">
       <Filter>Test Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\Functions\math_ext.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\Functions\string_ext.cpp">
+      <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\Functions\fs_ext.cpp">
+      <Filter>Source Files\Functions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

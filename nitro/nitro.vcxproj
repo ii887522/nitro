@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\Allocator\linear_allocator.h" />
+    <ClCompile Include="src\main\Functions\fs_ext.cpp" />
     <ClCompile Include="src\main\Functions\math_ext.cpp" />
     <ClCompile Include="src\main\Functions\string_ext.cpp" />
     <ClCompile Include="src\test\Any\AnimatedAny.test.cpp" />
