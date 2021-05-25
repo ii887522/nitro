@@ -67,6 +67,24 @@
     <ClCompile Include="src\test\Reactive\UnaryReactive.test.cpp" />
     <ClCompile Include="src\test\Struct\Vector.test.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\test\c\a.txt" />
+    <Text Include="res\test\e\a.txt" />
+    <Text Include="res\test\f\a.txt" />
+    <Text Include="res\test\f\b.txt" />
+    <Text Include="res\test\h\a.txt" />
+    <Text Include="res\test\i\a.txt" />
+    <Text Include="res\test\i\b.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\test\d\0.png" />
+    <Image Include="res\test\e\0.png" />
+    <Image Include="res\test\g\0.png" />
+    <Image Include="res\test\g\1.png" />
+    <Image Include="res\test\h\0.png" />
+    <Image Include="res\test\h\1.png" />
+    <Image Include="res\test\i\0.PNG" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -175,7 +193,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=16384u;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=32768u;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
