@@ -33,6 +33,8 @@ template <typename T, template <typename> typename U> void write(const string& f
 // Param path: it must ends with either '/' or '\\'
 void emptyDir(const string& path);
 
+bool hasFileWithExtension(const string& dirPath, const string& extensionName);
+
 }  // namespace ii887522::nitro
 
 #endif  // NITRO_SRC_MAIN_FUNCTIONS_FS_EXT_H_

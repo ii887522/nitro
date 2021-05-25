@@ -6,13 +6,20 @@
 #include <cassert>
 #include <vector>
 #include <fstream>
+#include <filesystem>
 #include "../../main/Functions/fs_ext.h"
 #include "../../main/Struct/Range.h"
 
 using std::vector;
 using std::ios;
+using std::filesystem::create_directory;
+using std::filesystem::remove_all;
 
 namespace ii887522::nitro {
+
+static void init() {
+  create_directory("res/test/a/");
+}
 
 static void testRead() {
   try {
@@ -87,9 +94,35 @@ static void testWrite() {
   }
 }
 
+static void testHasFileWithExtension() {
+  assert(!hasFileWithExtension("res/test/a/", ".txt"));
+  assert(hasFileWithExtension("res/test/c/", ".txt"));
+  assert(!hasFileWithExtension("res/test/d/", ".txt"));
+  assert(hasFileWithExtension("res/test/e/", ".txt"));
+  assert(hasFileWithExtension("res/test/f/", ".txt"));
+  assert(!hasFileWithExtension("res/test/g/", ".txt"));
+  assert(hasFileWithExtension("res/test/h/", ".txt"));
+  assert(hasFileWithExtension("res/test/i/", ".txt"));
+  assert(!hasFileWithExtension("res/test/a/", ".png"));
+  assert(!hasFileWithExtension("res/test/c/", ".png"));
+  assert(hasFileWithExtension("res/test/d/", ".png"));
+  assert(hasFileWithExtension("res/test/e/", ".png"));
+  assert(!hasFileWithExtension("res/test/f/", ".png"));
+  assert(hasFileWithExtension("res/test/g/", ".png"));
+  assert(hasFileWithExtension("res/test/h/", ".png"));
+  assert(!hasFileWithExtension("res/test/i/", ".png"));
+}
+
+static void free() {
+  remove_all("res/test/a/");
+}
+
 void testFsExt() {
+  init();
   testRead();
   testWrite();
+  testHasFileWithExtension();
+  free();
 }
 
 }  // namespace ii887522::nitro

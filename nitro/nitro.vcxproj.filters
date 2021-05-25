@@ -57,6 +57,30 @@
     <Filter Include="Source Files\Functions">
       <UniqueIdentifier>{92726427-7da4-410e-aed0-fd3baf3e765e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test Resource Files">
+      <UniqueIdentifier>{16b00558-22b0-4075-9661-c3cafc92529f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Resource Files\c">
+      <UniqueIdentifier>{41c109c4-222c-4301-b486-fa7b2763ddc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Resource Files\d">
+      <UniqueIdentifier>{1c30cd5a-27a1-40c1-9987-c4cbd823130a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Resource Files\e">
+      <UniqueIdentifier>{d81ce25b-708f-435b-83e7-4ca29835f6ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Resource Files\f">
+      <UniqueIdentifier>{afc50c9c-b1c9-44e1-9fe6-2d4aed9a85fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Resource Files\g">
+      <UniqueIdentifier>{4a266acb-8d45-4dc8-8afc-dd948b5f35a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Resource Files\h">
+      <UniqueIdentifier>{d285a3ba-e38a-47d7-bde1-89028999adcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test Resource Files\i">
+      <UniqueIdentifier>{e75b8eca-39bf-4700-978e-fdc3c31d4a78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\Any\AnimatedAny.h">
@@ -172,5 +196,51 @@
     <ClCompile Include="src\main\Functions\fs_ext.cpp">
       <Filter>Source Files\Functions</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\test\c\a.txt">
+      <Filter>Test Resource Files\c</Filter>
+    </Text>
+    <Text Include="res\test\e\a.txt">
+      <Filter>Test Resource Files\e</Filter>
+    </Text>
+    <Text Include="res\test\f\a.txt">
+      <Filter>Test Resource Files\f</Filter>
+    </Text>
+    <Text Include="res\test\f\b.txt">
+      <Filter>Test Resource Files\f</Filter>
+    </Text>
+    <Text Include="res\test\h\a.txt">
+      <Filter>Test Resource Files\h</Filter>
+    </Text>
+    <Text Include="res\test\i\a.txt">
+      <Filter>Test Resource Files\i</Filter>
+    </Text>
+    <Text Include="res\test\i\b.txt">
+      <Filter>Test Resource Files\i</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\test\d\0.png">
+      <Filter>Test Resource Files\d</Filter>
+    </Image>
+    <Image Include="res\test\e\0.png">
+      <Filter>Test Resource Files\e</Filter>
+    </Image>
+    <Image Include="res\test\g\0.png">
+      <Filter>Test Resource Files\g</Filter>
+    </Image>
+    <Image Include="res\test\g\1.png">
+      <Filter>Test Resource Files\g</Filter>
+    </Image>
+    <Image Include="res\test\h\0.png">
+      <Filter>Test Resource Files\h</Filter>
+    </Image>
+    <Image Include="res\test\h\1.png">
+      <Filter>Test Resource Files\h</Filter>
+    </Image>
+    <Image Include="res\test\i\0.PNG">
+      <Filter>Test Resource Files\i</Filter>
+    </Image>
   </ItemGroup>
 </Project>
