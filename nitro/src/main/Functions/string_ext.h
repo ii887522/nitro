@@ -20,10 +20,10 @@ constexpr char toLowerCase(const char ch) {
   return ch >= 'A' && ch <= 'Z' ? ch + 32u : ch;
 }
 
-// Param str: it must not be assigned to nullptr or integer
+/// <param name="str">It must not be assigned to nullptr or integer</param>
 void toUpperCase(string*const str);
 
-// Param str: it must not be assigned to nullptr or integer
+/// <param name="str">It must not be assigned to nullptr or integer</param>
 void toLowerCase(string*const str);
 
 }  // namespace ii887522::nitro

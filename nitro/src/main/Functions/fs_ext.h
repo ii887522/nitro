@@ -13,7 +13,7 @@ using std::ios;
 
 namespace ii887522::nitro {
 
-// Param filePath: it must exist
+/// <param name="filePath">It must exists</param>
 template <typename T, template <typename> typename U> U<T> read(const string& filePath) {
   ifstream file{ filePath, ios::binary | ios::ate };
   file.exceptions(file.failbit);
@@ -30,7 +30,7 @@ template <typename T, template <typename> typename U> void write(const string& f
   file.close();
 }
 
-// Param path: it must ends with either '/' or '\\'
+/// <param name="path">It must ends with either '/' or '\\'</param>
 void emptyDir(const string& path);
 
 bool hasFileWithExtension(const string& dirPath, const string& extensionName);

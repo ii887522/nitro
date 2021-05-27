@@ -11,7 +11,7 @@ using std::string;
 
 namespace ii887522::nitro {
 
-// Param value: it must not be assigned to nullptr and integer
+/// <param name="value">It must not be assigned to nullptr and integer</param>
 template <typename T> constexpr void clamp(T*const value, const Range<T>& range) {
   if (*value < range.min) *value = range.min;
   else if (*value > range.max) *value = range.max;
@@ -45,7 +45,7 @@ constexpr unsigned int parseUint(const char ch) {
 
 unsigned int parseUint(const string& uintStr);
 
-// Power of Two is a number that is equal to 2^n where n is an integer.
+/// <summary>Power of Two is a number that is equal to 2^n where n is an integer.</summary>
 template <typename T> bool isPowerOfTwo(const T& n) {
   const auto power{ log2f(static_cast<float>(n)) };
   return power == static_cast<int>(power);
