@@ -40,7 +40,8 @@ constexpr static size_t getAlignedDataSize(const size_t dataSize, const size_t s
 }
 
 #ifdef ALLOCATOR_IMPLEMENTATIONS
-// Not Thread Safe
+
+/// <summary>Not Thread Safe</summary>
 static void* longTermAlloc(const size_t size) {
   longTermDataSize = getAlignedDataSize(longTermDataSize, size);
   const auto result{ longTermData + longTermDataSize };
@@ -51,7 +52,7 @@ static void* longTermAlloc(const size_t size) {
   return result;
 }
 
-// Not Thread Safe
+/// <summary>Not Thread Safe</summary>
 static void* shortTermAlloc(const size_t size) {
 #ifdef SHORT_TERM_ALLOCATOR_SIZE
   shortTermDataSize = getAlignedDataSize(shortTermDataSize, size);
@@ -98,7 +99,7 @@ using ii887522::nitro::longTermAlloc;
 using ii887522::nitro::shortTermAlloc;
 #endif
 
-// Not Thread Safe
+/// <summary>Not Thread Safe</summary>
 void* operator new(const size_t size)
 #ifdef ALLOCATOR_IMPLEMENTATIONS
 {
@@ -112,7 +113,7 @@ void* operator new(const size_t size)
 ;  // NOLINT(whitespace/semicolon)
 #endif
 
-// Not Thread Safe
+/// <summary>Not Thread Safe</summary>
 void operator delete(void* const)
 #ifdef ALLOCATOR_IMPLEMENTATIONS
 { }

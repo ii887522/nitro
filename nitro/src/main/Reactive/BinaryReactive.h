@@ -12,7 +12,7 @@ using std::function;
 
 namespace ii887522::nitro {
 
-// Not Thread Safe
+/// <summary>Not Thread Safe</summary>
 template <typename R, typename T, typename U> class BinaryReactive final : public Reactive<T> {
   // remove copy semantics
   BinaryReactive(const BinaryReactive&) = delete;
@@ -29,7 +29,7 @@ template <typename R, typename T, typename U> class BinaryReactive final : publi
  public:
   explicit constexpr BinaryReactive(const T& value) : Reactive<T>{ value } { }
 
-  // Param function: it must be commutative
+  /// <param name="function">It must be commutative</param>
   explicit constexpr BinaryReactive(BinaryReactive<R, T, U>*const leftParent, BinaryReactive<R, T, U>*const rightParent,
     const function<R(const T*const, const U*const)>& function) :
     Reactive<T>{ function(leftParent ? &leftParent->get() : nullptr, rightParent ? &rightParent->get() : nullptr) } {

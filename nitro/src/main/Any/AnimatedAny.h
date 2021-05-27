@@ -17,9 +17,10 @@ using std::function;
 
 namespace ii887522::nitro {
 
-// Param T: it must not be equal to unsigned type
+/// <param name="T">It must not be equal to unsigned integer type</param>
 template <typename T> struct AnimatedAny final {
-  // Not Thread Safe
+
+  /// <summary>Not Thread Safe</summary>
   class Builder final {
     // remove copy semantics
     Builder(const Builder&) = delete;
@@ -30,23 +31,31 @@ template <typename T> struct AnimatedAny final {
     Builder& operator=(Builder&&) = delete;
 
     const T value;
-    unsigned int duration;  // animation duration
-    bool hasSetDuration;  // has set animation duration
+
+    /// <summary>Animation duration</summary>
+    unsigned int duration;
+
+    /// <summary>Has set animation duration </summary>
+    bool hasSetDuration;
+
     const function<void()> onAnimationEnd;
 
    public:
     explicit constexpr Builder(const T& value, const function<void()>& onAnimationEnd = []() { }) : value{ value }, duration{ 0u },
       hasSetDuration{ false }, onAnimationEnd{ onAnimationEnd } { }
 
-    // Animation duration. It must be called at least 1 time before building AnimatedAny<T> object.
-    // Param p_value: it must not be assigned to 0
+    /// <summary>
+    ///   <para>Animation duration.</para>
+    ///   <para>It must be called at least 1 time before building AnimatedAny&lt;T&gt; object.</para>
+    /// </summary>
+    /// <param name="p_value">It must not be assigned to 0</param>
     constexpr Builder& setDuration(const unsigned int p_value) {
       duration = p_value;
       hasSetDuration = true;
       return *this;
     }
 
-    // It must be called to build AnimatedAny<T> object
+    /// <summary>It must be called to build AnimatedAny&lt;T&gt; object</summary>
     AnimatedAny<T> build() {
       if (hasSetDuration) return AnimatedAny{ *this };
       throw runtime_error{ string { "AnimatedAny<" } + typeid(T).name() + "> duration is required!" };
@@ -59,7 +68,10 @@ template <typename T> struct AnimatedAny final {
   T start;
   T now;
   T end;
-  const unsigned int duration;  // animation duration
+
+  /// <summary>Animation duration</summary>
+  const unsigned int duration;
+
   unsigned int elaspedTime;
   const function<void()> onAnimationEnd;
 

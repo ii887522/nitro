@@ -9,7 +9,7 @@ using std::queue;
 
 namespace ii887522::nitro {
 
-// Param queue: it must not be assigned to nullptr and integer
+/// <param name="queue">It must not be assigned to nullptr and integer</param>
 template <typename T> void clear(queue<T>*const queue) {
   while (!queue->empty()) queue->pop();
 }

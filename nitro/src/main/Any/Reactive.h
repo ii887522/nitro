@@ -11,7 +11,7 @@ using std::vector;
 
 namespace ii887522::nitro {
 
-// Not Thread Safe
+/// <summary>Not Thread Safe</summary>
 template <typename T> class Reactive {
   // remove copy semantics
   Reactive(const Reactive&) = delete;
