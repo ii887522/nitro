@@ -19,7 +19,6 @@ namespace ii887522::nitro {
 
 /// <param name="T">It must not be equal to unsigned integer type</param>
 template <typename T> struct AnimatedAny final {
-
   /// <summary>Not Thread Safe</summary>
   class Builder final {
     // remove copy semantics

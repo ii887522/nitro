@@ -87,8 +87,7 @@ template <typename T, template <typename> typename U> void insertionSorts(U<T>*c
 
 /// <param name="objects">It must not be assigned to nullptr or integer and must not be an empty vector</param>
 /// <param name="compare">It returns true if two objects passed in needs to be sorted</param>
-template <typename T, template <typename> typename U> void sort(U<T>*const objects, const function<bool(const T& l, const T& r)>& compare = [](const T& l, const T& r) {
-  // NOLINT(build/include_what_you_use)
+template <typename T, template <typename> typename U> void sort(U<T>*const objects, const function<bool(const T& l, const T& r)>& compare = [](const T& l, const T& r) {  // NOLINT(build/include_what_you_use)
   return l > r;
 }) {
   constexpr auto runSize{ 32u };
