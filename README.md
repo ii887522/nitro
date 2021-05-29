@@ -2,25 +2,21 @@
 It is a general purpose C++ library that can help developers create various kinds of applications in no time.
 
 ## Table of Contents
-- [For developers reading this in GitHub](https://gitlab.com/ii887522/nitro#for-developers-reading-this-in-github)
-- [Coding Style](https://gitlab.com/ii887522/nitro#coding-style)
-- [Prerequisites](https://gitlab.com/ii887522/nitro#prerequisites)
-- [Update .NET Framework SDK version used by ms-build-tools to match your OS](https://gitlab.com/ii887522/nitro#update-net-framework-sdk-version-used-by-ms-build-tools-to-match-your-os)
-- [Build custom-node docker image](https://gitlab.com/ii887522/nitro#build-custom-node-docker-image)
-- [Build ms-build-tools docker image](https://gitlab.com/ii887522/nitro#build-ms-build-tools-docker-image)
-- [Install dependencies](https://gitlab.com/ii887522/nitro#install-dependencies)
-- [Set correct cpplint executable path in .vscode/settings.json](https://gitlab.com/ii887522/nitro#set-correct-cpplint-executable-path-in-vscodesettingsjson)
-- [Build project](https://gitlab.com/ii887522/nitro#build-project)
-- [Deploy project](https://gitlab.com/ii887522/nitro#deploy-project)
-
-## For developers reading this in GitHub
-Please go to https://gitlab.com/ii887522/nitro to start contributing instead.
+- [Coding Style](https://github.com/ii887522/nitro#coding-style)
+- [Prerequisites](https://github.com/ii887522/nitro#prerequisites)
+- [Update .NET Framework SDK version used by ms-build-tools to match your OS](https://github.com/ii887522/nitro#update-net-framework-sdk-version-used-by-ms-build-tools-to-match-your-os)
+- [Build custom-node docker image](https://github.com/ii887522/nitro#build-custom-node-docker-image)
+- [Build ms-build-tools docker image](https://github.com/ii887522/nitro#build-ms-build-tools-docker-image)
+- [Install dependencies](https://github.com/ii887522/nitro#install-dependencies)
+- [Set correct cpplint executable path in .vscode/settings.json](https://github.com/ii887522/nitro#set-correct-cpplint-executable-path-in-vscodesettingsjson)
+- [Build project](https://github.com/ii887522/nitro#build-project)
+- [Deploy project](https://github.com/ii887522/nitro#deploy-project)
 
 ## Coding Style
 This project follows [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). Please familiarize yourself with the rules provided
 in the coding style and make sure all the proposed code changes in your commits are conforming to the style before making a merge request. You can
 also make use of cpplint which is a [Visual Studio Code](https://code.visualstudio.com/) plugin and `build` command under the
-[Build project](https://gitlab.com/ii887522/nitro#build-project) section to support you.
+[Build project](https://github.com/ii887522/nitro#build-project) section to support you.
 
 ## Prerequisites
 - Windows 10

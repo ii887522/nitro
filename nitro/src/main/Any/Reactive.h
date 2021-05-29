@@ -11,7 +11,7 @@ using std::vector;
 
 namespace ii887522::nitro {
 
-// Not Thread Safe
+/// <summary>Not Thread Safe</summary>
 template <typename T> class Reactive {
   // remove copy semantics
   Reactive(const Reactive&) = delete;
@@ -22,7 +22,7 @@ template <typename T> class Reactive {
   Reactive& operator=(Reactive&&) = delete;
 
   T value;
-  vector<function<void(const T&, const int)>> handlers;
+  vector<function<void(const T& value, const int handlerI)>> handlers;
 
  public:
   explicit constexpr Reactive(const T& value) : value{ value } { }
@@ -38,7 +38,7 @@ template <typename T> class Reactive {
     }
   }
 
-  constexpr void watch(const function<void(const T&, const int)>& handler) {
+  constexpr void watch(const function<void(const T& value, const int handlerI)>& handler) {
     handlers.push_back(handler);
   }
 };

@@ -12,7 +12,7 @@ using std::function;
 
 namespace ii887522::nitro {
 
-// Not Thread Safe
+/// <summary>Not Thread Safe</summary>
 template <typename R, typename T> class UnaryReactive final : public Reactive<T> {
   // remove copy semantics
   UnaryReactive(const UnaryReactive&) = delete;
