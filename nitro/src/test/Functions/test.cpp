@@ -29,7 +29,7 @@ static int main() {
   testFsExt();
   testStringExt();
   testUtil();
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 }  // namespace ii887522::nitro
