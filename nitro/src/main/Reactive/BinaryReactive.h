@@ -45,6 +45,8 @@ template <typename R, typename T, typename U> class BinaryReactive final : publi
     }
   }
 
+
+  /// <param name="ignoredHandlerI">-1 means no handlers are ignored</param>
   void set(const T& value, const int ignoredHandlerI = -1) override {
     Reactive<T>::set(value, ignoredHandlerI);
     for (auto i{ 0u }; i != children.size(); ++i) children[i]->set(functions[i](&this->get(), thats[i] ? &thats[i]->get() : nullptr));

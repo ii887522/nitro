@@ -35,6 +35,7 @@ template <typename R, typename T> class UnaryReactive final : public Reactive<T>
     parent->functions.push_back(function);
   }
 
+  /// <param name="ignoredHandlerI">-1 means no handlers are ignored</param>
   void set(const T& value, const int ignoredHandlerI = -1) override {
     Reactive<T>::set(value, ignoredHandlerI);
     for (auto i{ 0u }; i != children.size(); ++i) children[i]->set(functions[i](&this->get()));
