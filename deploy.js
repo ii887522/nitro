@@ -9,32 +9,41 @@ const { request } = octokitRequest
 
 const version = process.argv[2]
 const accessToken = process.argv[3]
+const projectName = 'nitro'
+const staticLibExtensionName = '.lib'
+const bundleOutDirPath = 'libs/'
+const archiveExtensionName = 'zip'
 
 async function bundleInclude() {
-  ensureDirSync(`libs/nitro-${version}/include/nitro/`)
-  return copy('nitro/src/main/', `libs/nitro-${version}/include/nitro/`, { recursive: true, filter: (src, dest) => {
+  const includeDirPath = `${bundleOutDirPath}${projectName}-${version}/include/`
+  ensureDirSync(`${includeDirPath}${projectName}/`)
+  return copy(`${projectName}/src/main/`, `${includeDirPath}${projectName}/`, { recursive: true, filter: (src, dest) => {
     return !src.endsWith('.cpp')
   } })
 }
 
 async function bundleX86Debug() {
-  ensureDirSync(`libs/nitro-${version}/lib/x86/Debug/`)
-  return copy('nitro/Debug/nitro.lib', `libs/nitro-${version}/lib/x86/Debug/nitro.lib`)
+  const x86DebugDirPath = `${bundleOutDirPath}${projectName}-${version}/lib/x86/Debug/`
+  ensureDirSync(x86DebugDirPath)
+  return copy(`${projectName}/Debug/${projectName}${staticLibExtensionName}`, `${x86DebugDirPath}${projectName}${staticLibExtensionName}`)
 }
 
 async function bundleX86Release() {
-  ensureDirSync(`libs/nitro-${version}/lib/x86/Release/`)
-  return copy('nitro/Release/nitro.lib', `libs/nitro-${version}/lib/x86/Release/nitro.lib`)
+  const x86ReleaseDirPath = `${bundleOutDirPath}${projectName}-${version}/lib/x86/Release/`
+  ensureDirSync(x86ReleaseDirPath)
+  return copy(`${projectName}/Release/${projectName}${staticLibExtensionName}`, `${x86ReleaseDirPath}${projectName}${staticLibExtensionName}`)
 }
 
 async function bundleX64Debug() {
-  ensureDirSync(`libs/nitro-${version}/lib/x64/Debug/`)
-  return copy('nitro/x64/Debug/nitro.lib', `libs/nitro-${version}/lib/x64/Debug/nitro.lib`)
+  const x64DebugDirPath = `${bundleOutDirPath}${projectName}-${version}/lib/x64/Debug/`
+  ensureDirSync(x64DebugDirPath)
+  return copy(`${projectName}/x64/Debug/${projectName}${staticLibExtensionName}`, `${x64DebugDirPath}${projectName}${staticLibExtensionName}`)
 }
 
 async function bundleX64Release() {
-  ensureDirSync(`libs/nitro-${version}/lib/x64/Release/`)
-  return copy('nitro/x64/Release/nitro.lib', `libs/nitro-${version}/lib/x64/Release/nitro.lib`)
+  const x64ReleaseDirPath = `${bundleOutDirPath}${projectName}-${version}/lib/x64/Release/`
+  ensureDirSync(x64ReleaseDirPath)
+  return copy(`${projectName}/x64/Release/${projectName}${staticLibExtensionName}`, `${x64ReleaseDirPath}${projectName}${staticLibExtensionName}`)
 }
 
 async function bundleX86() {
@@ -66,25 +75,26 @@ async function bundle() {
 }
 
 async function zip() {
-  const archive = archiver('zip', { zlib: { level: 9 } })
+  const archive = archiver(archiveExtensionName, { zlib: { level: 9 } })
   archive.on('warning', err => {
     if (err.code == 'ENOENT') console.log(err)
     else throw err
   }).on('error', err => {
     throw err
-  }).pipe(createWriteStream(`libs/nitro-${version}.zip`))
-  return archive.directory(`libs/nitro-${version}/`, `nitro-${version}/`).finalize()
+  }).pipe(createWriteStream(`${bundleOutDirPath}${projectName}-${version}.${archiveExtensionName}`))
+  return archive.directory(`${bundleOutDirPath}${projectName}-${version}/`, `${projectName}-${version}/`).finalize()
 }
 
 async function publish() {
+  const owner = 'ii887522'
   const result = await request('POST /repos/{owner}/{repo}/releases', {
     headers: {
       authorization: `token ${accessToken}`
     },
-    owner: 'ii887522',
-    repo: 'nitro',
+    owner,
+    repo: projectName,
     tag_name: `v${version}`,
-    name: `${version}`
+    name: version
   })
   return request('POST /repos/{owner}/{repo}/releases/{release_id}/assets{?name,label}', {
     headers: {
@@ -92,11 +102,11 @@ async function publish() {
       'content-type': 'application/zip'
     },
     baseUrl: 'https://uploads.github.com',
-    owner: 'ii887522',
-    repo: 'nitro',
+    owner,
+    repo: projectName,
     release_id: result.data.id,
-    name: `nitro-${version}.zip`,
-    data: await readFile(`libs/nitro-${version}.zip`)
+    name: `${projectName}-${version}.${archiveExtensionName}`,
+    data: await readFile(`${bundleOutDirPath}${projectName}-${version}.${archiveExtensionName}`)
   })
 }
 
@@ -104,5 +114,5 @@ async function publish() {
   await bundle()
   await zip()
   await publish()
-  remove('libs/')
+  remove(bundleOutDirPath)
 })()
