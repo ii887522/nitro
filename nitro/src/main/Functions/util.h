@@ -90,9 +90,9 @@ template <typename T, template <typename> typename U> void insertionSorts(U<T>*c
 template <typename T, template <typename> typename U> void sort(U<T>*const objects, const function<bool(const T& l, const T& r)>& compare = [](const T& l, const T& r) {  // NOLINT(build/include_what_you_use)
   return l > r;
 }) {
-  constexpr auto runSize{ 32u };
-  insertionSorts<T, U>(objects, runSize, compare);
-  mergeSort<T, U>(objects, runSize, compare);
+  constexpr auto RUN_SIZE{ 32u };
+  insertionSorts<T, U>(objects, RUN_SIZE, compare);
+  mergeSort<T, U>(objects, RUN_SIZE, compare);
 }
 
 }  // namespace ii887522::nitro
