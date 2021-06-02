@@ -17,10 +17,10 @@ bool isUint(const string& str) {
 unsigned int parseUint(const string& uintStr) {
   auto result{ 0u };
   auto placeValue{ 1u };
-  constexpr auto radix{ 10u };
+  constexpr auto RADIX{ 10u };
   for (auto i{ static_cast<int>(uintStr.length() - 1u) }; i >= 0; --i) {
     result += parseUint(uintStr[i]) * placeValue;
-    placeValue *= radix;
+    placeValue *= RADIX;
   }
   return result;
 }

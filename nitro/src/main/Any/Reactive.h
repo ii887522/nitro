@@ -31,6 +31,7 @@ template <typename T> class Reactive {
     return value;
   }
 
+  /// <param name="ignoredHandlerI">-1 means no handler is ignored</param>
   virtual void set(const T& p_value, const int ignoredHandlerI = -1) {
     value = p_value;
     for (auto i{ 0u }; i != handlers.size(); ++i) {

@@ -30,8 +30,8 @@ template <typename T, template <typename> typename U> void insertionSort(U<T>*co
   const function<bool(const T& l, const T& r)>& compare = [](const T& l, const T& r) {
     return l > r;
   }) {
-  const auto maxIndex{ min(indices.max, static_cast<unsigned int>(objects->size() - 1u)) };
-  for (auto i{ indices.min + 1u }; i <= maxIndex; ++i) {
+  const auto maxI{ min(indices.max, static_cast<unsigned int>(objects->size() - 1u)) };
+  for (auto i{ indices.min + 1u }; i <= maxI; ++i) {
     for (auto j{ i }; j > indices.min; --j) {
       if (compare((*objects)[j - 1u], (*objects)[j])) swap((*objects)[j - 1u], (*objects)[j]);
       else
@@ -54,9 +54,9 @@ template <typename T, template <typename> typename U> void mergeSort(U<T>*const 
   while (true) {
     for (auto i{ 0u }; i < objects->size(); i += step) {
       auto l{ i };
-      auto r{ i + (step >> 1u) };
+      auto r{ i + (step >> 1u) };  // which means r = i + step / 2
       for (auto j{ i }; j != min(i + step, static_cast<unsigned int>(objects->size())); ++j) {
-        if (r < objects->size() && r != i + step && (l == i + (step >> 1u) || compare((*nextObjects)[l], (*nextObjects)[r]))) {
+        if (r < objects->size() && r != i + step && (l == i + (step >> 1u)  /* which means l == i + step / 2 */ || compare((*nextObjects)[l], (*nextObjects)[r]))) {
           (*currentObjects)[j] = (*nextObjects)[r];
           ++r;
         } else {
@@ -67,7 +67,7 @@ template <typename T, template <typename> typename U> void mergeSort(U<T>*const 
     }
     ii887522::nitro::swap(currentObjects, nextObjects);  // NOLINT(build/include_what_you_use)
     if (step >= objects->size()) break;
-    step <<= 1u;
+    step <<= 1u;  // which means step *= 2
   }
   if (currentObjects == objects) memcpy(objects->data(), aux.data(), objects->size() * sizeof T);
 }
@@ -90,9 +90,9 @@ template <typename T, template <typename> typename U> void insertionSorts(U<T>*c
 template <typename T, template <typename> typename U> void sort(U<T>*const objects, const function<bool(const T& l, const T& r)>& compare = [](const T& l, const T& r) {  // NOLINT(build/include_what_you_use)
   return l > r;
 }) {
-  constexpr auto runSize{ 32u };
-  insertionSorts<T, U>(objects, runSize, compare);
-  mergeSort<T, U>(objects, runSize, compare);
+  constexpr auto RUN_SIZE{ 32u };
+  insertionSorts<T, U>(objects, RUN_SIZE, compare);
+  mergeSort<T, U>(objects, RUN_SIZE, compare);
 }
 
 }  // namespace ii887522::nitro
