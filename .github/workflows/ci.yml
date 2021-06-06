@@ -94,12 +94,12 @@ jobs:
       - name: Test x86
         run: |
           cd nitro
-          Test\nitro
+          Test\nitro.exe
           cd ..
       - name: Test x64
         run: |
           cd nitro
-          x64\Test\nitro
+          x64\Test\nitro.exe
           cd ..
     needs: build-test-app
   build:
@@ -121,9 +121,9 @@ jobs:
             ${{ runner.os }}-pip-node-
             ${{ runner.os }}-
       - run: msbuild nitro\nitro.sln /p:Configuration=Debug /p:Platform=x86
-      - run: msbuild C:\nitro\nitro\nitro.sln /p:Configuration=Debug /p:Platform=x64
-      - run: msbuild C:\nitro\nitro\nitro.sln /p:Configuration=Release /p:Platform=x86
-      - run: msbuild C:\nitro\nitro\nitro.sln /p:Configuration=Release /p:Platform=x64
+      - run: msbuild nitro\nitro.sln /p:Configuration=Debug /p:Platform=x64
+      - run: msbuild nitro\nitro.sln /p:Configuration=Release /p:Platform=x86
+      - run: msbuild nitro\nitro.sln /p:Configuration=Release /p:Platform=x64
     needs: lint
   deploy:
     if: github.base_ref == 'master'
