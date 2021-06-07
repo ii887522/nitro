@@ -7,6 +7,7 @@ on:
     branches: [master, develop]
 
 env:
+  project-name: 'nitro'
   python-version: '3.7'
   node-version: '14.x'
 
@@ -58,7 +59,7 @@ jobs:
       - name: Lint project
         run: |
           env\Scripts\activate
-          cpplint --recursive --linelength=256 nitro\src\
+          cpplint --recursive --linelength=256 ${{ env.project-name }}\src\
           env\Scripts\deactivate
   build-test-app:
     runs-on: windows-latest
@@ -89,16 +90,16 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            nitro\Test
-            nitro\x64\Test
-          key: ${{ runner.os }}-cpp-${{ hashFiles('nitro\res\**\*', 'nitro\src\**\*') }}
+            ${{ env.project-name }}\Test
+            ${{ env.project-name }}\x64\Test
+          key: ${{ runner.os }}-cpp-${{ hashFiles('${{ env.project-name }}\res\**\*', '${{ env.project-name }}\src\**\*') }}
       - name: Use MSBuild
         if: steps.outputs-cache.outputs.cache-hit != 'true'
         uses: microsoft/setup-msbuild@v1.0.2
       - if: steps.outputs-cache.outputs.cache-hit != 'true'
-        run: msbuild nitro\nitro.sln /p:Configuration=Test /p:Platform=x86
+        run: msbuild ${{ env.project-name }}\${{ env.project-name }}.sln /p:Configuration=Test /p:Platform=x86
       - if: steps.outputs-cache.outputs.cache-hit != 'true'
-        run: msbuild nitro\nitro.sln /p:Configuration=Test /p:Platform=x64
+        run: msbuild ${{ env.project-name }}\${{ env.project-name }}.sln /p:Configuration=Test /p:Platform=x64
     needs: lint
   test:
     runs-on: windows-latest
@@ -109,18 +110,18 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            nitro\Test
-            nitro\x64\Test
-          key: ${{ runner.os }}-cpp-${{ hashFiles('nitro\res\**\*', 'nitro\src\**\*') }}
+            ${{ env.project-name }}\Test
+            ${{ env.project-name }}\x64\Test
+          key: ${{ runner.os }}-cpp-${{ hashFiles('${{ env.project-name }}\res\**\*', '${{ env.project-name }}\src\**\*') }}
       - name: Test x86
         run: |
-          cd nitro
-          Test\nitro
+          cd ${{ env.project-name }}
+          Test\${{ env.project-name }}
           cd ..
       - name: Test x64
         run: |
-          cd nitro
-          x64\Test\nitro
+          cd ${{ env.project-name }}
+          x64\Test\${{ env.project-name }}
           cd ..
     needs: build-test-app
   build:
@@ -147,18 +148,18 @@ jobs:
           path: |
             **\Debug
             **\Release
-          key: ${{ runner.os }}-cpp-${{ hashFiles('nitro\res\**\*', 'nitro\src\**\*') }}
+          key: ${{ runner.os }}-cpp-${{ hashFiles('${{ env.project-name }}\res\**\*', '${{ env.project-name }}\src\**\*') }}
       - name: Use MSBuild
         if: steps.outputs-cache.outputs.cache-hit != 'true'
         uses: microsoft/setup-msbuild@v1.0.2
       - if: steps.outputs-cache.outputs.cache-hit != 'true'
-        run: msbuild nitro\nitro.sln /p:Configuration=Debug /p:Platform=x86
+        run: msbuild ${{ env.project-name }}\${{ env.project-name }}.sln /p:Configuration=Debug /p:Platform=x86
       - if: steps.outputs-cache.outputs.cache-hit != 'true'
-        run: msbuild nitro\nitro.sln /p:Configuration=Debug /p:Platform=x64
+        run: msbuild ${{ env.project-name }}\${{ env.project-name }}.sln /p:Configuration=Debug /p:Platform=x64
       - if: steps.outputs-cache.outputs.cache-hit != 'true'
-        run: msbuild nitro\nitro.sln /p:Configuration=Release /p:Platform=x86
+        run: msbuild ${{ env.project-name }}\${{ env.project-name }}.sln /p:Configuration=Release /p:Platform=x86
       - if: steps.outputs-cache.outputs.cache-hit != 'true'
-        run: msbuild nitro\nitro.sln /p:Configuration=Release /p:Platform=x64
+        run: msbuild ${{ env.project-name }}\${{ env.project-name }}.sln /p:Configuration=Release /p:Platform=x64
     needs: lint
   deploy:
     if: github.base_ref == 'master'
@@ -191,7 +192,7 @@ jobs:
           path: |
             **\Debug
             **\Release
-          key: ${{ runner.os }}-cpp-${{ hashFiles('nitro\res\**\*', 'nitro\src\**\*') }}
+          key: ${{ runner.os }}-cpp-${{ hashFiles('${{ env.project-name }}\res\**\*', '${{ env.project-name }}\src\**\*') }}
       - name: Install dependencies
         run: npm ci
       - run: node deploy.js 1.3.0 ${{ secrets.DEPLOY_TOKEN }}
