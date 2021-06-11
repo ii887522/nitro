@@ -2,9 +2,8 @@
 
 #ifdef TEST
 
-#include "AnimatedAny.test.h"
-#include <cassert>
 #include <stdexcept>
+#include <catch.hpp>
 #include "../../main/Any/AnimatedAny.h"
 #include "../../main/Any/Reactive.h"
 
@@ -12,69 +11,60 @@ using std::runtime_error;
 
 namespace ii887522::nitro {
 
-static void testBuild() {
-  assert(AnimatedAny<int>::Builder{ 0 }.setDuration(250u).build().get() == 0);
-  assert(AnimatedAny<int>::Builder{ 1 }.setDuration(250u).build().get() == 1);
-  assert(AnimatedAny<int>::Builder{ 1 }.setDuration(500u).build().get() == 1);
+TEST_CASE("test AnimatedAny<T>::Builder::build() function") {
+  REQUIRE(AnimatedAny<int>::Builder{ 0 }.setDuration(250u).build().get() == 0);
+  REQUIRE(AnimatedAny<int>::Builder{ 1 }.setDuration(250u).build().get() == 1);
+  REQUIRE(AnimatedAny<int>::Builder{ 1 }.setDuration(500u).build().get() == 1);
   {
     auto n{ 0u };
-    assert((AnimatedAny<int>::Builder{ 1, [&n]() {
+    REQUIRE((AnimatedAny<int>::Builder{ 1, [&n]() {
       ++n;
     } }.setDuration(500u).build().get() == 1));
-    assert(n == 0u);
+    REQUIRE(n == 0u);
   }
-  try {
-    AnimatedAny<int>::Builder{ 0 }.build();
-  } catch (const runtime_error&) {
-    try {
-      AnimatedAny<int>::Builder{ 1 }.build();
-    } catch (const runtime_error&) {
-      try {
-        auto n{ 0u };
-        AnimatedAny<int>::Builder{ 1, [&n]() {
-          ++n;
-        } }.build();
-      } catch (const runtime_error&) {
-        return;
-      }
-    }
+  REQUIRE_THROWS(AnimatedAny<int>::Builder{ 0 }.build());
+  REQUIRE_THROWS(AnimatedAny<int>::Builder{ 1 }.build());
+  {
+    auto n{ 0u };
+    REQUIRE_THROWS(AnimatedAny<int>::Builder{ 1, [&n]() {
+      ++n;
+    } }.build());
   }
-  assert(false);
 }
 
-static void testTeleport() {
+TEST_CASE("test AnimatedAny<T>::teleport() function") {
   {
     AnimatedAny n{ AnimatedAny<int>::Builder{ 0 }.setDuration(250u).build() };
     n.teleport(1);
-    assert(n.getStart() == 0);
-    assert(n.get() == 1);
-    assert(n.getEnd() == 1);
+    REQUIRE(n.getStart() == 0);
+    REQUIRE(n.get() == 1);
+    REQUIRE(n.getEnd() == 1);
     n.teleport(2);
-    assert(n.getStart() == 1);
-    assert(n.get() == 2);
-    assert(n.getEnd() == 2);
+    REQUIRE(n.getStart() == 1);
+    REQUIRE(n.get() == 2);
+    REQUIRE(n.getEnd() == 2);
   }
   {
     AnimatedAny n{ AnimatedAny<int>::Builder{ 10 }.setDuration(250u).build() };
     n.teleport(1);
-    assert(n.getStart() == 10);
-    assert(n.get() == 1);
-    assert(n.getEnd() == 1);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 1);
+    REQUIRE(n.getEnd() == 1);
     n.teleport(2);
-    assert(n.getStart() == 1);
-    assert(n.get() == 2);
-    assert(n.getEnd() == 2);
+    REQUIRE(n.getStart() == 1);
+    REQUIRE(n.get() == 2);
+    REQUIRE(n.getEnd() == 2);
   }
   {
     AnimatedAny n{ AnimatedAny<int>::Builder{ 10 }.setDuration(500u).build() };
     n.teleport(1);
-    assert(n.getStart() == 10);
-    assert(n.get() == 1);
-    assert(n.getEnd() == 1);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 1);
+    REQUIRE(n.getEnd() == 1);
     n.teleport(2);
-    assert(n.getStart() == 1);
-    assert(n.get() == 2);
-    assert(n.getEnd() == 2);
+    REQUIRE(n.getStart() == 1);
+    REQUIRE(n.get() == 2);
+    REQUIRE(n.getEnd() == 2);
   }
   {
     auto m{ 0u };
@@ -82,102 +72,102 @@ static void testTeleport() {
       ++m;
     } }.setDuration(500u).build() };
     n.teleport(1);
-    assert(n.getStart() == 10);
-    assert(n.get() == 1);
-    assert(n.getEnd() == 1);
-    assert(m == 0u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 1);
+    REQUIRE(n.getEnd() == 1);
+    REQUIRE(m == 0u);
     n.teleport(2);
-    assert(n.getStart() == 1);
-    assert(n.get() == 2);
-    assert(n.getEnd() == 2);
-    assert(m == 0u);
+    REQUIRE(n.getStart() == 1);
+    REQUIRE(n.get() == 2);
+    REQUIRE(n.getEnd() == 2);
+    REQUIRE(m == 0u);
   }
 }
 
-static void testStep() {
+TEST_CASE("test AnimatedAny<T>::step() function") {
   {
     AnimatedAny n{ AnimatedAny<int>::Builder{ 0 }.setDuration(250u).build() };
     n.set(100);
     n.step(0u);
-    assert(n.getStart() == 0);
-    assert(n.get() == 0);
-    assert(n.getEnd() == 100);
+    REQUIRE(n.getStart() == 0);
+    REQUIRE(n.get() == 0);
+    REQUIRE(n.getEnd() == 100);
     n.step(30u);
-    assert(n.getStart() == 0);
-    assert(n.get() == 12);
-    assert(n.getEnd() == 100);
+    REQUIRE(n.getStart() == 0);
+    REQUIRE(n.get() == 12);
+    REQUIRE(n.getEnd() == 100);
     n.step(40u);
-    assert(n.getStart() == 0);
-    assert(n.get() == 28);
-    assert(n.getEnd() == 100);
+    REQUIRE(n.getStart() == 0);
+    REQUIRE(n.get() == 28);
+    REQUIRE(n.getEnd() == 100);
     n.step(50u);
-    assert(n.getStart() == 0);
-    assert(n.get() == 48);
-    assert(n.getEnd() == 100);
+    REQUIRE(n.getStart() == 0);
+    REQUIRE(n.get() == 48);
+    REQUIRE(n.getEnd() == 100);
     n.step(60u);
-    assert(n.getStart() == 0);
-    assert(n.get() == 72);
-    assert(n.getEnd() == 100);
+    REQUIRE(n.getStart() == 0);
+    REQUIRE(n.get() == 72);
+    REQUIRE(n.getEnd() == 100);
     n.step(70u);
-    assert(n.getStart() == 0);
-    assert(n.get() == 100);
-    assert(n.getEnd() == 100);
+    REQUIRE(n.getStart() == 0);
+    REQUIRE(n.get() == 100);
+    REQUIRE(n.getEnd() == 100);
   }
   {
     AnimatedAny n{ AnimatedAny<unsigned int>::Builder{ 10 }.setDuration(250u).build() };
     n.set(110);
     n.step(0u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 10);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 10);
+    REQUIRE(n.getEnd() == 110);
     n.step(30u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 22);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 22);
+    REQUIRE(n.getEnd() == 110);
     n.step(40u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 38);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 38);
+    REQUIRE(n.getEnd() == 110);
     n.step(50u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 58);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 58);
+    REQUIRE(n.getEnd() == 110);
     n.step(60u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 82);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 82);
+    REQUIRE(n.getEnd() == 110);
     n.step(70u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 110);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 110);
+    REQUIRE(n.getEnd() == 110);
   }
   {
     AnimatedAny n{ AnimatedAny<unsigned int>::Builder{ 10 }.setDuration(500u).build() };
     n.set(110);
     n.step(0u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 10);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 10);
+    REQUIRE(n.getEnd() == 110);
     n.step(60u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 22);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 22);
+    REQUIRE(n.getEnd() == 110);
     n.step(80u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 38);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 38);
+    REQUIRE(n.getEnd() == 110);
     n.step(100u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 58);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 58);
+    REQUIRE(n.getEnd() == 110);
     n.step(120u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 82);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 82);
+    REQUIRE(n.getEnd() == 110);
     n.step(140u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 110);
-    assert(n.getEnd() == 110);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 110);
+    REQUIRE(n.getEnd() == 110);
   }
   {
     auto m{ 0u };
@@ -186,47 +176,41 @@ static void testStep() {
     } }.setDuration(500u).build() };
     n.set(110);
     n.step(0u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 10);
-    assert(n.getEnd() == 110);
-    assert(m == 0u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 10);
+    REQUIRE(n.getEnd() == 110);
+    REQUIRE(m == 0u);
     n.step(60u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 22);
-    assert(n.getEnd() == 110);
-    assert(m == 0u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 22);
+    REQUIRE(n.getEnd() == 110);
+    REQUIRE(m == 0u);
     n.step(80u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 38);
-    assert(n.getEnd() == 110);
-    assert(m == 0u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 38);
+    REQUIRE(n.getEnd() == 110);
+    REQUIRE(m == 0u);
     n.step(100u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 58);
-    assert(n.getEnd() == 110);
-    assert(m == 0u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 58);
+    REQUIRE(n.getEnd() == 110);
+    REQUIRE(m == 0u);
     n.step(120u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 82);
-    assert(n.getEnd() == 110);
-    assert(m == 0u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 82);
+    REQUIRE(n.getEnd() == 110);
+    REQUIRE(m == 0u);
     n.step(140u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 110);
-    assert(n.getEnd() == 110);
-    assert(m == 1u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 110);
+    REQUIRE(n.getEnd() == 110);
+    REQUIRE(m == 1u);
     n.step(10u);
-    assert(n.getStart() == 10);
-    assert(n.get() == 110);
-    assert(n.getEnd() == 110);
-    assert(m == 1u);
+    REQUIRE(n.getStart() == 10);
+    REQUIRE(n.get() == 110);
+    REQUIRE(n.getEnd() == 110);
+    REQUIRE(m == 1u);
   }
-}
-
-void testAnimatedAny() {
-  testBuild();
-  testTeleport();
-  testStep();
 }
 
 }  // namespace ii887522::nitro
