@@ -9,9 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Test Header Files">
-      <UniqueIdentifier>{f716bdbb-7dcc-4ea1-aaec-f1beb43c5abd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Test Source Files">
       <UniqueIdentifier>{b6579c0e-bfe8-4b51-a187-60404b74ee71}</UniqueIdentifier>
     </Filter>
@@ -27,26 +24,11 @@
     <Filter Include="Header Files\Struct">
       <UniqueIdentifier>{8784fcff-f52c-416a-b6f4-8a214819be53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Test Header Files\Any">
-      <UniqueIdentifier>{a853a5d0-5bcd-465b-82a6-3dffb5baa298}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test Header Files\Functions">
-      <UniqueIdentifier>{72b06555-60e9-4409-a99e-73b6d6a528d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test Header Files\Reactive">
-      <UniqueIdentifier>{3d0bbcbf-74bb-4101-ac26-4038e54e4683}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test Header Files\Struct">
-      <UniqueIdentifier>{19558d27-8bc0-4ec7-9c03-6af01d816423}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Test Source Files\Any">
       <UniqueIdentifier>{82739f87-9db2-42b4-b145-3e1617770a1d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Test Source Files\Functions">
       <UniqueIdentifier>{3e1422de-17a3-4af0-b792-303b91900ac7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test Source Files\Struct">
-      <UniqueIdentifier>{3bed952f-5fd6-4645-8fb4-13f0598a4dbe}</UniqueIdentifier>
     </Filter>
     <Filter Include="Test Source Files\Reactive">
       <UniqueIdentifier>{89423a92-d04d-44fb-b078-e3c3909887d4}</UniqueIdentifier>
@@ -107,27 +89,6 @@
     <ClInclude Include="src\main\Reactive\UnaryReactive.h">
       <Filter>Header Files\Reactive</Filter>
     </ClInclude>
-    <ClInclude Include="src\test\Any\AnimatedAny.test.h">
-      <Filter>Test Header Files\Any</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Any\Reactive.test.h">
-      <Filter>Test Header Files\Any</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Functions\math_ext.test.h">
-      <Filter>Test Header Files\Functions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Functions\queue_ext.test.h">
-      <Filter>Test Header Files\Functions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Struct\Vector.test.h">
-      <Filter>Test Header Files\Struct</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Reactive\BinaryReactive.test.h">
-      <Filter>Test Header Files\Reactive</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Reactive\UnaryReactive.test.h">
-      <Filter>Test Header Files\Reactive</Filter>
-    </ClInclude>
     <ClInclude Include="src\main\Any\allocator.h">
       <Filter>Header Files\Any</Filter>
     </ClInclude>
@@ -140,14 +101,8 @@
     <ClInclude Include="src\main\Functions\util.h">
       <Filter>Header Files\Functions</Filter>
     </ClInclude>
-    <ClInclude Include="src\test\Functions\fs_ext.test.h">
-      <Filter>Test Header Files\Functions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Functions\string_ext.test.h">
-      <Filter>Test Header Files\Functions</Filter>
-    </ClInclude>
-    <ClInclude Include="src\test\Functions\util.test.h">
-      <Filter>Test Header Files\Functions</Filter>
+    <ClInclude Include="src\main\nitro.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +114,6 @@
     </ClCompile>
     <ClCompile Include="src\test\Functions\test.cpp">
       <Filter>Test Source Files\Functions</Filter>
-    </ClCompile>
-    <ClCompile Include="src\test\Struct\Vector.test.cpp">
-      <Filter>Test Source Files\Struct</Filter>
     </ClCompile>
     <ClCompile Include="src\test\Reactive\BinaryReactive.test.cpp">
       <Filter>Test Source Files\Reactive</Filter>
@@ -242,5 +194,37 @@
     <Image Include="res\test\i\0.PNG">
       <Filter>Test Resource Files\i</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\test\a.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\b.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\c.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\d.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\e.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\f.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\g.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\h.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\i.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
+    <None Include="res\test\j.dat">
+      <Filter>Test Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

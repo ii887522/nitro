@@ -12,7 +12,7 @@
 using ii887522::nitro::min;
 using std::bad_alloc;
 
-#ifdef _DEBUG
+#if defined _DEBUG && defined ALLOCATOR_VERBOSE_LOGGING
 #include <iostream>
 
 using std::cout;
@@ -46,7 +46,7 @@ static void* longTermAlloc(const size_t size) {
   longTermDataSize = getAlignedDataSize(longTermDataSize, size);
   const auto result{ longTermData + longTermDataSize };
   longTermDataSize += size;
-#ifdef _DEBUG
+#if defined _DEBUG && defined ALLOCATOR_VERBOSE_LOGGING
   cout << "Long term data usage: " << longTermDataSize << " bytes\n";
 #endif
   return result;
@@ -58,7 +58,7 @@ static void* shortTermAlloc(const size_t size) {
   shortTermDataSize = getAlignedDataSize(shortTermDataSize, size);
   const auto result{ shortTermData + shortTermDataSize };
   shortTermDataSize += size;
-#ifdef _DEBUG
+#if defined _DEBUG && defined ALLOCATOR_VERBOSE_LOGGING
   cout << "Short term data usage: " << shortTermDataSize << " bytes\n";
 #endif
   return result;
