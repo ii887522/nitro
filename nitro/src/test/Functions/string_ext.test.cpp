@@ -2,178 +2,168 @@
 
 #ifdef TEST
 
-#include "string_ext.test.h"  // NOLINT(build/include_subdir)
 #include <string>
-#include <cassert>
+#include <catch.hpp>
 #include "../../main/Functions/string_ext.h"
 
 using std::string;
 
 namespace ii887522::nitro {
 
-static void testGetLastPathDelimiterI() {
-  assert(getLastPathDelimiterI("a") == string::npos);
-  assert(getLastPathDelimiterI("b") == string::npos);
-  assert(getLastPathDelimiterI("b/") == 1u);
-  assert(getLastPathDelimiterI("b\\") == 1u);
-  assert(getLastPathDelimiterI("b\\a") == 1u);
-  assert(getLastPathDelimiterI("b\\a\\") == 3u);
-  assert(getLastPathDelimiterI("b\\a\\a") == 3u);
-  assert(getLastPathDelimiterI("b\\a\\a\\") == 5u);
-  assert(getLastPathDelimiterI("b\\a\\a\\a") == 5u);
+TEST_CASE("test getLastPathDelimiterI() function") {
+  REQUIRE(getLastPathDelimiterI("a") == string::npos);
+  REQUIRE(getLastPathDelimiterI("b") == string::npos);
+  REQUIRE(getLastPathDelimiterI("b/") == 1u);
+  REQUIRE(getLastPathDelimiterI("b\\") == 1u);
+  REQUIRE(getLastPathDelimiterI("b\\a") == 1u);
+  REQUIRE(getLastPathDelimiterI("b\\a\\") == 3u);
+  REQUIRE(getLastPathDelimiterI("b\\a\\a") == 3u);
+  REQUIRE(getLastPathDelimiterI("b\\a\\a\\") == 5u);
+  REQUIRE(getLastPathDelimiterI("b\\a\\a\\a") == 5u);
 }
 
-static void testGetFileName() {
-  assert(getFileName("a") == "a");
-  assert(getFileName("b") == "b");
-  assert(getFileName("ba") == "ba");
-  assert(getFileName("bb") == "bb");
-  assert(getFileName("cb") == "cb");
-  assert(getFileName("cba") == "cba");
-  assert(getFileName("cbb") == "cbb");
-  assert(getFileName("ccb") == "ccb");
-  assert(getFileName("dcb") == "dcb");
-  assert(getFileName("dcba") == "dcba");
-  assert(getFileName("dcba.a") == "dcba");
-  assert(getFileName("/cba") == "cba");
-  assert(getFileName("\\cba") == "cba");
-  assert(getFileName("\\cba.a") == "cba");
-  assert(getFileName("\\cba.b") == "cba");
-  assert(getFileName("\\cba.ba") == "cba");
-  assert(getFileName("\\c\\a.ba") == "a");
+TEST_CASE("test getFileName() function") {
+  REQUIRE(getFileName("a") == "a");
+  REQUIRE(getFileName("b") == "b");
+  REQUIRE(getFileName("ba") == "ba");
+  REQUIRE(getFileName("bb") == "bb");
+  REQUIRE(getFileName("cb") == "cb");
+  REQUIRE(getFileName("cba") == "cba");
+  REQUIRE(getFileName("cbb") == "cbb");
+  REQUIRE(getFileName("ccb") == "ccb");
+  REQUIRE(getFileName("dcb") == "dcb");
+  REQUIRE(getFileName("dcba") == "dcba");
+  REQUIRE(getFileName("dcba.a") == "dcba");
+  REQUIRE(getFileName("/cba") == "cba");
+  REQUIRE(getFileName("\\cba") == "cba");
+  REQUIRE(getFileName("\\cba.a") == "cba");
+  REQUIRE(getFileName("\\cba.b") == "cba");
+  REQUIRE(getFileName("\\cba.ba") == "cba");
+  REQUIRE(getFileName("\\c\\a.ba") == "a");
 }
 
-constexpr static void testToUpperCaseForChar() {
-  static_assert(toUpperCase('`') == '`');
-  static_assert(toUpperCase('a') == 'A');
-  static_assert(toUpperCase('b') == 'B');
-  static_assert(toUpperCase('y') == 'Y');
-  static_assert(toUpperCase('z') == 'Z');
-  static_assert(toUpperCase('{') == '{');
+TEST_CASE("test toUpperCase(const char) function") {
+  REQUIRE(toUpperCase('`') == '`');
+  REQUIRE(toUpperCase('a') == 'A');
+  REQUIRE(toUpperCase('b') == 'B');
+  REQUIRE(toUpperCase('y') == 'Y');
+  REQUIRE(toUpperCase('z') == 'Z');
+  REQUIRE(toUpperCase('{') == '{');
 }
 
-constexpr static void testToLowerCaseForChar() {
-  static_assert(toLowerCase('@') == '@');
-  static_assert(toLowerCase('A') == 'a');
-  static_assert(toLowerCase('B') == 'b');
-  static_assert(toLowerCase('Y') == 'y');
-  static_assert(toLowerCase('Z') == 'z');
-  static_assert(toLowerCase('[') == '[');
+TEST_CASE("test toLowerCase(const char) function") {
+  REQUIRE(toLowerCase('@') == '@');
+  REQUIRE(toLowerCase('A') == 'a');
+  REQUIRE(toLowerCase('B') == 'b');
+  REQUIRE(toLowerCase('Y') == 'y');
+  REQUIRE(toLowerCase('Z') == 'z');
+  REQUIRE(toLowerCase('[') == '[');
 }
 
-static void testToUpperCaseForString() {
+TEST_CASE("test toUpperCase(string*const) function") {
   {
     string str{ "a" };
     toUpperCase(&str);
-    assert(str == "A");
+    REQUIRE(str == "A");
   }
   {
     string str{ "b" };
     toUpperCase(&str);
-    assert(str == "B");
+    REQUIRE(str == "B");
   }
   {
     string str{ "ba" };
     toUpperCase(&str);
-    assert(str == "BA");
+    REQUIRE(str == "BA");
   }
   {
     string str{ "bb" };
     toUpperCase(&str);
-    assert(str == "BB");
+    REQUIRE(str == "BB");
   }
   {
     string str{ "cb" };
     toUpperCase(&str);
-    assert(str == "CB");
+    REQUIRE(str == "CB");
   }
   {
     string str{ "cba" };
     toUpperCase(&str);
-    assert(str == "CBA");
+    REQUIRE(str == "CBA");
   }
   {
     string str{ "cbb" };
     toUpperCase(&str);
-    assert(str == "CBB");
+    REQUIRE(str == "CBB");
   }
   {
     string str{ "ccb" };
     toUpperCase(&str);
-    assert(str == "CCB");
+    REQUIRE(str == "CCB");
   }
   {
     string str{ "dcb" };
     toUpperCase(&str);
-    assert(str == "DCB");
+    REQUIRE(str == "DCB");
   }
   {
     string str{ "dcba" };
     toUpperCase(&str);
-    assert(str == "DCBA");
+    REQUIRE(str == "DCBA");
   }
 }
 
-static void testToLowerCaseForString() {
+TEST_CASE("test toLowerCase(string*const) function") {
   {
     string str{ "A" };
     toLowerCase(&str);
-    assert(str == "a");
+    REQUIRE(str == "a");
   }
   {
     string str{ "B" };
     toLowerCase(&str);
-    assert(str == "b");
+    REQUIRE(str == "b");
   }
   {
     string str{ "BA" };
     toLowerCase(&str);
-    assert(str == "ba");
+    REQUIRE(str == "ba");
   }
   {
     string str{ "BB" };
     toLowerCase(&str);
-    assert(str == "bb");
+    REQUIRE(str == "bb");
   }
   {
     string str{ "CB" };
     toLowerCase(&str);
-    assert(str == "cb");
+    REQUIRE(str == "cb");
   }
   {
     string str{ "CBA" };
     toLowerCase(&str);
-    assert(str == "cba");
+    REQUIRE(str == "cba");
   }
   {
     string str{ "CBB" };
     toLowerCase(&str);
-    assert(str == "cbb");
+    REQUIRE(str == "cbb");
   }
   {
     string str{ "CCB" };
     toLowerCase(&str);
-    assert(str == "ccb");
+    REQUIRE(str == "ccb");
   }
   {
     string str{ "DCB" };
     toLowerCase(&str);
-    assert(str == "dcb");
+    REQUIRE(str == "dcb");
   }
   {
     string str{ "DCBA" };
     toLowerCase(&str);
-    assert(str == "dcba");
+    REQUIRE(str == "dcba");
   }
-}
-
-void testStringExt() {
-  testGetLastPathDelimiterI();
-  testGetFileName();
-  testToUpperCaseForChar();
-  testToLowerCaseForChar();
-  testToUpperCaseForString();
-  testToLowerCaseForString();
 }
 
 }  // namespace ii887522::nitro

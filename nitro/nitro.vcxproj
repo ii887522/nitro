@@ -35,20 +35,11 @@
     <ClInclude Include="src\main\Functions\queue_ext.h" />
     <ClInclude Include="src\main\Functions\string_ext.h" />
     <ClInclude Include="src\main\Functions\util.h" />
+    <ClInclude Include="src\main\nitro.h" />
     <ClInclude Include="src\main\Reactive\BinaryReactive.h" />
     <ClInclude Include="src\main\Reactive\UnaryReactive.h" />
     <ClInclude Include="src\main\Struct\Range.h" />
     <ClInclude Include="src\main\Struct\Vector.h" />
-    <ClInclude Include="src\test\Any\AnimatedAny.test.h" />
-    <ClInclude Include="src\test\Any\Reactive.test.h" />
-    <ClInclude Include="src\test\Functions\fs_ext.test.h" />
-    <ClInclude Include="src\test\Functions\math_ext.test.h" />
-    <ClInclude Include="src\test\Functions\queue_ext.test.h" />
-    <ClInclude Include="src\test\Functions\string_ext.test.h" />
-    <ClInclude Include="src\test\Functions\util.test.h" />
-    <ClInclude Include="src\test\Reactive\BinaryReactive.test.h" />
-    <ClInclude Include="src\test\Reactive\UnaryReactive.test.h" />
-    <ClInclude Include="src\test\Struct\Vector.test.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main\Allocator\linear_allocator.h" />
@@ -65,7 +56,6 @@
     <ClCompile Include="src\test\Functions\util.test.cpp" />
     <ClCompile Include="src\test\Reactive\BinaryReactive.test.cpp" />
     <ClCompile Include="src\test\Reactive\UnaryReactive.test.cpp" />
-    <ClCompile Include="src\test\Struct\Vector.test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\test\c\a.txt" />
@@ -84,6 +74,18 @@
     <Image Include="res\test\h\0.png" />
     <Image Include="res\test\h\1.png" />
     <Image Include="res\test\i\0.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\test\a.dat" />
+    <None Include="res\test\b.dat" />
+    <None Include="res\test\c.dat" />
+    <None Include="res\test\d.dat" />
+    <None Include="res\test\e.dat" />
+    <None Include="res\test\f.dat" />
+    <None Include="res\test\g.dat" />
+    <None Include="res\test\h.dat" />
+    <None Include="res\test\i.dat" />
+    <None Include="res\test\j.dat" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -193,12 +195,13 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=32768u;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=524288u;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -247,12 +250,13 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=32768u;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST;LINEAR_ALLOCATOR;LONG_TERM_ALLOCATOR_SIZE=1048576u;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <TreatWarningAsError>true</TreatWarningAsError>
-      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
