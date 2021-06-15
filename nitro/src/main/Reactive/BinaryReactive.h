@@ -22,29 +22,32 @@ template <typename R, typename T, typename U> class BinaryReactive final : publi
   BinaryReactive(BinaryReactive&&) = delete;
   BinaryReactive& operator=(BinaryReactive&&) = delete;
 
-  vector<Reactive<T>*> children;
+  vector<Reactive<R>*> children;
   vector<function<R(const T*const, const U*const)>> functions;
-  vector<Reactive<T>*> thats;
+  vector<Reactive<U>*> thats;
 
  public:
   explicit constexpr BinaryReactive(const T& value) : Reactive<T>{ value } { }
 
-  /// <param name="function">It must be commutative</param>
-  explicit constexpr BinaryReactive(BinaryReactive<R, T, U>*const leftParent, BinaryReactive<R, T, U>*const rightParent,
-    const function<R(const T*const, const U*const)>& function) :
-    Reactive<T>{ function(leftParent ? &leftParent->get() : nullptr, rightParent ? &rightParent->get() : nullptr) } {
+  /// <param name="leftParent">It must not be assigned to integer</param>
+  /// <param name="rightParent">It must not be assigned to integer</param>
+  template <typename V, typename W> constexpr static BinaryReactive<R, T, U>* make(BinaryReactive<T, V, W>*const leftParent, BinaryReactive<T, W, V>*const rightParent,
+    const function<T(const V*const, const W*const)>& function) {
+    const auto result{ new BinaryReactive{ function(leftParent ? &leftParent->get() : nullptr, rightParent ? &rightParent->get() : nullptr) } };
     if (leftParent) {
-      leftParent->children.push_back(this);
+      leftParent->children.push_back(result);
       leftParent->functions.push_back(function);
       leftParent->thats.push_back(rightParent);
     }
     if (rightParent) {
-      rightParent->children.push_back(this);
-      rightParent->functions.push_back(function);
+      rightParent->children.push_back(result);
+      rightParent->functions.push_back([function](const W*const right, const V*const left) {
+        return function(left, right);
+      });
       rightParent->thats.push_back(leftParent);
     }
+    return result;
   }
-
 
   /// <param name="ignoredHandlerI">-1 means no handlers are ignored</param>
   void set(const T& value, const int ignoredHandlerI = -1) override {

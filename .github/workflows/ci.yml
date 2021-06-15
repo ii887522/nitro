@@ -32,15 +32,15 @@ jobs:
             ~\AppData\Local\pip\Cache
             env
             ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-node-virtualenv-cpplint-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-pip-node-${{ secrets.CACHE_VERSION }}-virtualenv-cpplint-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-pip-node-
+            ${{ runner.os }}-pip-node-${{ secrets.CACHE_VERSION }}-
             ${{ runner.os }}-
       - name: Cache libs
         uses: actions/cache@v2
         with:
           path: libs
-          key: ${{ runner.os }}-node-${{ hashFiles('build.js') }}
+          key: ${{ runner.os }}-node-${{ secrets.CACHE_VERSION }}-${{ hashFiles('build.js') }}
       - name: Use Python
         if: steps.cache.outputs.cache-hit != 'true'
         uses: actions/setup-python@v2
@@ -74,7 +74,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: libs
-          key: ${{ runner.os }}-node-${{ hashFiles('build.js') }}
+          key: ${{ runner.os }}-node-${{ secrets.CACHE_VERSION }}-${{ hashFiles('build.js') }}
       - name: Cache outputs
         id: outputs-cache
         uses: actions/cache@v2
@@ -82,7 +82,7 @@ jobs:
           path: |
             ${{ env.project-name }}\Test
             ${{ env.project-name }}\x64\Test
-          key: ${{ runner.os }}-cpp-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
+          key: ${{ runner.os }}-cpp-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
       - name: Use MSBuild
         if: steps.outputs-cache.outputs.cache-hit != 'true'
         uses: microsoft/setup-msbuild@v1.0.2
@@ -102,7 +102,7 @@ jobs:
           path: |
             ${{ env.project-name }}\Test
             ${{ env.project-name }}\x64\Test
-          key: ${{ runner.os }}-cpp-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
+          key: ${{ runner.os }}-cpp-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
       - name: Test x86
         run: |
           cd ${{ env.project-name }}
@@ -123,7 +123,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: libs
-          key: ${{ runner.os }}-node-${{ hashFiles('build.js') }}
+          key: ${{ runner.os }}-node-${{ secrets.CACHE_VERSION }}-${{ hashFiles('build.js') }}
       - name: Cache outputs
         id: outputs-cache
         uses: actions/cache@v2
@@ -131,7 +131,7 @@ jobs:
           path: |
             **\Debug
             **\Release
-          key: ${{ runner.os }}-cpp-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
+          key: ${{ runner.os }}-cpp-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
       - name: Use MSBuild
         if: steps.outputs-cache.outputs.cache-hit != 'true'
         uses: microsoft/setup-msbuild@v1.0.2
@@ -164,9 +164,9 @@ jobs:
             ~\AppData\Local\pip\Cache
             env
             ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-node-virtualenv-cpplint-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-pip-node-${{ secrets.CACHE_VERSION }}-virtualenv-cpplint-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-pip-node-
+            ${{ runner.os }}-pip-node-${{ secrets.CACHE_VERSION }}-
             ${{ runner.os }}-
       - name: Cache outputs
         uses: actions/cache@v2
@@ -174,8 +174,8 @@ jobs:
           path: |
             **\Debug
             **\Release
-          key: ${{ runner.os }}-cpp-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
+          key: ${{ runner.os }}-cpp-${{ secrets.CACHE_VERSION }}-${{ hashFiles(format('{0}\res\**\*', env.project-name), format('{0}\src\**\*', env.project-name), format('{0}\{0}.vcxproj', env.project-name)) }}
       - name: Install dependencies
         run: npm ci
-      - run: node deploy.js 1.3.2 ${{ secrets.DEPLOY_TOKEN }}
+      - run: node deploy.js 1.3.3 ${{ secrets.DEPLOY_TOKEN }}
     needs: [test, build]
