@@ -22,7 +22,7 @@ template <typename T> class Reactive {
   Reactive& operator=(Reactive&&) = delete;
 
   T value;
-  vector<function<void(const T& value, const int handlerI)>> handlers;
+  vector<function<void(const T& oldValue, const T& newValue, const int handlerI)>> handlers;
 
  public:
   explicit constexpr Reactive(const T& value) : value{ value } { }
@@ -33,13 +33,14 @@ template <typename T> class Reactive {
 
   /// <param name="ignoredHandlerI">-1 means no handler is ignored</param>
   virtual void set(const T& p_value, const int ignoredHandlerI = -1) {
+    const auto oldValue{ value };
     value = p_value;
     for (auto i{ 0u }; i != handlers.size(); ++i) {
-      if (static_cast<int>(i) != ignoredHandlerI) handlers[i](value, i);
+      if (static_cast<int>(i) != ignoredHandlerI) handlers[i](oldValue, value, i);
     }
   }
 
-  constexpr void watch(const function<void(const T& value, const int handlerI)>& handler) {
+  constexpr void watch(const function<void(const T& oldValue, const T& newValue, const int handlerI)>& handler) {
     handlers.push_back(handler);
   }
 };
