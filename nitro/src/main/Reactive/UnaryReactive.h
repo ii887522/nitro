@@ -22,17 +22,19 @@ template <typename R, typename T> class UnaryReactive final : public Reactive<T>
   UnaryReactive(UnaryReactive&&) = delete;
   UnaryReactive& operator=(UnaryReactive&&) = delete;
 
-  vector<Reactive<T>*> children;
+  vector<Reactive<R>*> children;
   vector<function<R(const T*const)>> functions;
 
  public:
   explicit constexpr UnaryReactive(const T& value) : Reactive<T>{ value } { }
 
-  explicit constexpr UnaryReactive(UnaryReactive<R, T>*const parent, const function<R(const T*const)>& function) :
-    Reactive<T>{ function(parent ? &parent->get() : nullptr) } {
-    if (!parent) return;
-    parent->children.push_back(this);
+  /// <param name="parent">It must not be assigned to integer</param>
+  template <typename U> constexpr static UnaryReactive<R, T>* make(UnaryReactive<T, U>*const parent, const function<T(const U*const)>& function) {
+    const auto result{ new UnaryReactive{ function(parent ? &parent->get() : nullptr) } };
+    if (!parent) return result;
+    parent->children.push_back(result);
     parent->functions.push_back(function);
+    return result;
   }
 
   /// <param name="ignoredHandlerI">-1 means no handlers are ignored</param>

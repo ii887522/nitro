@@ -13,19 +13,19 @@ TEST_CASE("test Reactive<T>::set() function") {
     n.set(1u);
     REQUIRE(n.get() == 1u);
     auto count{ 0u };
-    n.watch([&count](const unsigned int& value, const int) {
+    n.watch([&count](const unsigned int&, const unsigned int& value, const int) {
       count += value;
     });
     n.set(2u);
     REQUIRE(n.get() == 2u);
     REQUIRE(count == 2u);
-    n.watch([&count](const unsigned int& value, const int) {
+    n.watch([&count](const unsigned int&, const unsigned int& value, const int) {
       count += value;
     });
     n.set(3u);
     REQUIRE(n.get() == 3u);
     REQUIRE(count == 8u);
-    n.watch([&n, &count](const unsigned int& value, const int handlerI) {
+    n.watch([&n, &count](const unsigned int&, const unsigned int& value, const int handlerI) {
       count += value;
       n.set(count, handlerI);
     });
@@ -38,19 +38,19 @@ TEST_CASE("test Reactive<T>::set() function") {
     n.set(1u);
     REQUIRE(n.get() == 1u);
     auto count{ 0u };
-    n.watch([&count](const unsigned int& value, const int) {
+    n.watch([&count](const unsigned int&, const unsigned int& value, const int) {
       count += value;
     });
     n.set(2u);
     REQUIRE(n.get() == 2u);
     REQUIRE(count == 2u);
-    n.watch([&count](const unsigned int& value, const int) {
+    n.watch([&count](const unsigned int&, const unsigned int& value, const int) {
       count += value;
     });
     n.set(3u);
     REQUIRE(n.get() == 3u);
     REQUIRE(count == 8u);
-    n.watch([&n, &count](const unsigned int& value, const int handlerI) {
+    n.watch([&n, &count](const unsigned int&, const unsigned int& value, const int handlerI) {
       count += value;
       n.set(count, handlerI);
     });
