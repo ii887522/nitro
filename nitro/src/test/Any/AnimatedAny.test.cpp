@@ -22,11 +22,11 @@ TEST_CASE("test AnimatedAny<T>::Builder::build() function") {
     } }.setDuration(500u).build().get() == 1));
     REQUIRE(n == 0u);
   }
-  REQUIRE_THROWS(AnimatedAny<int>::Builder{ 0 }.build());
-  REQUIRE_THROWS(AnimatedAny<int>::Builder{ 1 }.build());
+  REQUIRE_NOTHROW(AnimatedAny<int>::Builder{ 0 }.build());
+  REQUIRE_NOTHROW(AnimatedAny<int>::Builder{ 1 }.build());
   {
     auto n{ 0u };
-    REQUIRE_THROWS(AnimatedAny<int>::Builder{ 1, [&n]() {
+    REQUIRE_NOTHROW(AnimatedAny<int>::Builder{ 1, [&n]() {
       ++n;
     } }.build());
   }

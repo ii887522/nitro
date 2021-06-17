@@ -38,6 +38,7 @@
     <ClInclude Include="src\main\nitro.h" />
     <ClInclude Include="src\main\Reactive\BinaryReactive.h" />
     <ClInclude Include="src\main\Reactive\UnaryReactive.h" />
+    <ClInclude Include="src\main\Struct\Pair.h" />
     <ClInclude Include="src\main\Struct\Range.h" />
     <ClInclude Include="src\main\Struct\Vector.h" />
   </ItemGroup>
