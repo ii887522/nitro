@@ -34,30 +34,21 @@ template <typename T> struct AnimatedAny final {
     /// <summary>Animation duration</summary>
     unsigned int duration;
 
-    /// <summary>Has set animation duration </summary>
-    bool hasSetDuration;
-
     const function<void()> onAnimationEnd;
 
    public:
-    explicit constexpr Builder(const T& value, const function<void()>& onAnimationEnd = []() { }) : value{ value }, duration{ 0u },
-      hasSetDuration{ false }, onAnimationEnd{ onAnimationEnd } { }
+    explicit constexpr Builder(const T& value, const function<void()>& onAnimationEnd = []() { }) : value{ value }, duration{ 1u }, onAnimationEnd{ onAnimationEnd } { }
 
-    /// <summary>
-    ///   <para>Animation duration.</para>
-    ///   <para>It must be called at least 1 time before building AnimatedAny&lt;T&gt; object.</para>
-    /// </summary>
+    /// <summary>Animation duration.</summary>
     /// <param name="p_value">It must not be assigned to 0</param>
     constexpr Builder& setDuration(const unsigned int p_value) {
       duration = p_value;
-      hasSetDuration = true;
       return *this;
     }
 
     /// <summary>It must be called to build AnimatedAny&lt;T&gt; object</summary>
     AnimatedAny<T> build() {
-      if (hasSetDuration) return AnimatedAny{ *this };
-      throw runtime_error{ string { "AnimatedAny<" } + typeid(T).name() + "> duration is required!" };
+      return AnimatedAny{ *this };
     }
 
     friend struct AnimatedAny;
