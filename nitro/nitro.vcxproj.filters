@@ -104,6 +104,9 @@
     <ClInclude Include="src\main\nitro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\Struct\Pair.h">
+      <Filter>Header Files\Struct</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\test\Functions\math_ext.test.cpp">

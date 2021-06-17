@@ -15,5 +15,6 @@
 #include "Reactive/UnaryReactive.h"
 #include "Struct/Range.h"
 #include "Struct/Vector.h"
+#include "Struct/Pair.h"
 
 #endif  // NITRO_SRC_MAIN_NITRO_H_
