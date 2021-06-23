@@ -6,6 +6,7 @@
 #include <catch.hpp>
 #include "../../main/Any/AnimatedAny.h"
 #include "../../main/Any/Reactive.h"
+#include "../../main/Any/Enums.h"
 
 using std::runtime_error;
 
@@ -87,84 +88,84 @@ TEST_CASE("test AnimatedAny<T>::teleport() function") {
 TEST_CASE("test AnimatedAny<T>::step() function") {
   {
     AnimatedAny n{ AnimatedAny<int>::Builder{ 0 }.setDuration(250u).build() };
-    n.set(100);
-    n.step(0u);
+    REQUIRE(n.set(100) == Action::START_ANIMATION);
+    REQUIRE(n.step(0u) == Action::NONE);
     REQUIRE(n.getStart() == 0);
     REQUIRE(n.get() == 0);
     REQUIRE(n.getEnd() == 100);
-    n.step(30u);
+    REQUIRE(n.step(30u) == Action::NONE);
     REQUIRE(n.getStart() == 0);
     REQUIRE(n.get() == 12);
     REQUIRE(n.getEnd() == 100);
-    n.step(40u);
+    REQUIRE(n.step(40u) == Action::NONE);
     REQUIRE(n.getStart() == 0);
     REQUIRE(n.get() == 28);
     REQUIRE(n.getEnd() == 100);
-    n.step(50u);
+    REQUIRE(n.step(50u) == Action::NONE);
     REQUIRE(n.getStart() == 0);
     REQUIRE(n.get() == 48);
     REQUIRE(n.getEnd() == 100);
-    n.step(60u);
+    REQUIRE(n.step(60u) == Action::NONE);
     REQUIRE(n.getStart() == 0);
     REQUIRE(n.get() == 72);
     REQUIRE(n.getEnd() == 100);
-    n.step(70u);
+    REQUIRE(n.step(70u) == Action::STOP_ANIMATION);
     REQUIRE(n.getStart() == 0);
     REQUIRE(n.get() == 100);
     REQUIRE(n.getEnd() == 100);
   }
   {
     AnimatedAny n{ AnimatedAny<unsigned int>::Builder{ 10 }.setDuration(250u).build() };
-    n.set(110);
-    n.step(0u);
+    REQUIRE(n.set(110) == Action::START_ANIMATION);
+    REQUIRE(n.step(0u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 10);
     REQUIRE(n.getEnd() == 110);
-    n.step(30u);
+    REQUIRE(n.step(30u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 22);
     REQUIRE(n.getEnd() == 110);
-    n.step(40u);
+    REQUIRE(n.step(40u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 38);
     REQUIRE(n.getEnd() == 110);
-    n.step(50u);
+    REQUIRE(n.step(50u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 58);
     REQUIRE(n.getEnd() == 110);
-    n.step(60u);
+    REQUIRE(n.step(60u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 82);
     REQUIRE(n.getEnd() == 110);
-    n.step(70u);
+    REQUIRE(n.step(70u) == Action::STOP_ANIMATION);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 110);
     REQUIRE(n.getEnd() == 110);
   }
   {
     AnimatedAny n{ AnimatedAny<unsigned int>::Builder{ 10 }.setDuration(500u).build() };
-    n.set(110);
-    n.step(0u);
+    REQUIRE(n.set(110) == Action::START_ANIMATION);
+    REQUIRE(n.step(0u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 10);
     REQUIRE(n.getEnd() == 110);
-    n.step(60u);
+    REQUIRE(n.step(60u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 22);
     REQUIRE(n.getEnd() == 110);
-    n.step(80u);
+    REQUIRE(n.step(80u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 38);
     REQUIRE(n.getEnd() == 110);
-    n.step(100u);
+    REQUIRE(n.step(100u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 58);
     REQUIRE(n.getEnd() == 110);
-    n.step(120u);
+    REQUIRE(n.step(120u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 82);
     REQUIRE(n.getEnd() == 110);
-    n.step(140u);
+    REQUIRE(n.step(140u) == Action::STOP_ANIMATION);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 110);
     REQUIRE(n.getEnd() == 110);
@@ -174,38 +175,38 @@ TEST_CASE("test AnimatedAny<T>::step() function") {
     AnimatedAny n{ AnimatedAny<unsigned int>::Builder{ 10, [&m]() {
       ++m;
     } }.setDuration(500u).build() };
-    n.set(110);
-    n.step(0u);
+    REQUIRE(n.set(110) == Action::START_ANIMATION);
+    REQUIRE(n.step(0u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 10);
     REQUIRE(n.getEnd() == 110);
     REQUIRE(m == 0u);
-    n.step(60u);
+    REQUIRE(n.step(60u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 22);
     REQUIRE(n.getEnd() == 110);
     REQUIRE(m == 0u);
-    n.step(80u);
+    REQUIRE(n.step(80u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 38);
     REQUIRE(n.getEnd() == 110);
     REQUIRE(m == 0u);
-    n.step(100u);
+    REQUIRE(n.step(100u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 58);
     REQUIRE(n.getEnd() == 110);
     REQUIRE(m == 0u);
-    n.step(120u);
+    REQUIRE(n.step(120u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 82);
     REQUIRE(n.getEnd() == 110);
     REQUIRE(m == 0u);
-    n.step(140u);
+    REQUIRE(n.step(140u) == Action::STOP_ANIMATION);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 110);
     REQUIRE(n.getEnd() == 110);
     REQUIRE(m == 1u);
-    n.step(10u);
+    REQUIRE(n.step(10u) == Action::NONE);
     REQUIRE(n.getStart() == 10);
     REQUIRE(n.get() == 110);
     REQUIRE(n.getEnd() == 110);
