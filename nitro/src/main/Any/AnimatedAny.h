@@ -10,6 +10,7 @@
 #include "../Functions/math_ext.h"
 #include "../Struct/Range.h"
 #include "Reactive.h"
+#include "../Any/Enums.h"
 
 using std::runtime_error;
 using std::string;
@@ -63,10 +64,11 @@ template <typename T> struct AnimatedAny final {
   const unsigned int duration;
 
   unsigned int elaspedTime;
+  bool isAnimating;
   const function<void()> onAnimationEnd;
 
-  explicit constexpr AnimatedAny(const Builder& builder) : start{ builder.value }, now{ builder.value }, end{ builder.value },
-    duration{ builder.duration }, elaspedTime{ 0u }, onAnimationEnd{ builder.onAnimationEnd } { }
+  explicit constexpr AnimatedAny(const Builder& builder) : start{ builder.value }, now{ builder.value }, end{ builder.value }, duration{ builder.duration }, elaspedTime{ 0u },
+    isAnimating{ false }, onAnimationEnd{ builder.onAnimationEnd } { }
 
  public:
   constexpr const T& getStart() const {
@@ -81,10 +83,13 @@ template <typename T> struct AnimatedAny final {
     return end;
   }
 
-  constexpr void set(const T& value) {
+  constexpr Action set(const T& value) {
     start = now;
     end = value;
     elaspedTime = 0u;
+    if (isAnimating) return Action::NONE;
+    isAnimating = true;
+    return Action::START_ANIMATION;
   }
 
   constexpr void teleport(const T& value) {
@@ -94,12 +99,15 @@ template <typename T> struct AnimatedAny final {
     elaspedTime = duration;
   }
 
-  constexpr void step(const unsigned int dt) {
-    if (elaspedTime == duration) return;
+  constexpr Action step(const unsigned int dt) {
+    if (elaspedTime == duration) return Action::NONE;
     elaspedTime += dt;
     clamp(&elaspedTime, Range{ 0u, duration });
     now = static_cast<T>(start + (end - start) * (static_cast<float>(elaspedTime) / duration));
-    if (elaspedTime == duration) onAnimationEnd();
+    if (elaspedTime != duration) return Action::NONE;
+    onAnimationEnd();
+    isAnimating = false;
+    return Action::STOP_ANIMATION;
   }
 };
 

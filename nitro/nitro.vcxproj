@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="src\main\Any\allocator.h" />
     <ClInclude Include="src\main\Any\AnimatedAny.h" />
+    <ClInclude Include="src\main\Any\Enums.h" />
     <ClInclude Include="src\main\Any\Reactive.h" />
     <ClInclude Include="src\main\Functions\fs_ext.h" />
     <ClInclude Include="src\main\Functions\math_ext.h" />

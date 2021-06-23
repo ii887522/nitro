@@ -107,6 +107,9 @@
     <ClInclude Include="src\main\Struct\Pair.h">
       <Filter>Header Files\Struct</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\Any\Enums.h">
+      <Filter>Header Files\Any</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\test\Functions\math_ext.test.cpp">
