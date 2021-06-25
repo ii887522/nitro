@@ -10,7 +10,7 @@
 #include "../Functions/math_ext.h"
 #include "../Struct/Range.h"
 #include "Reactive.h"
-#include "../Any/Enums.h"
+#include "AnimationController.h"
 
 using std::runtime_error;
 using std::string;
@@ -18,6 +18,7 @@ using std::function;
 
 namespace ii887522::nitro {
 
+/// <summary>Not Thread Safe</summary>
 /// <param name="T">It must not be equal to unsigned integer type</param>
 template <typename T> struct AnimatedAny final {
   /// <summary>Not Thread Safe</summary>
@@ -30,6 +31,7 @@ template <typename T> struct AnimatedAny final {
     Builder(Builder&&) = delete;
     Builder& operator=(Builder&&) = delete;
 
+    AnimationController*const controller;
     const T value;
 
     /// <summary>Animation duration</summary>
@@ -38,7 +40,9 @@ template <typename T> struct AnimatedAny final {
     const function<void()> onAnimationEnd;
 
    public:
-    explicit constexpr Builder(const T& value, const function<void()>& onAnimationEnd = []() { }) : value{ value }, duration{ 1u }, onAnimationEnd{ onAnimationEnd } { }
+    /// <param name="controller">It must not be assigned to nullptr or integer</param>
+    explicit constexpr Builder(AnimationController*const controller, const T& value, const function<void()>& onAnimationEnd = []() { }) : controller{ controller }, value { value },
+      duration{ 1u }, onAnimationEnd{ onAnimationEnd } { }
 
     /// <summary>Animation duration.</summary>
     /// <param name="p_value">It must not be assigned to 0</param>
@@ -64,11 +68,13 @@ template <typename T> struct AnimatedAny final {
   const unsigned int duration;
 
   unsigned int elaspedTime;
-  bool isAnimating;
+  Reactive<bool> isAnimating;
   const function<void()> onAnimationEnd;
 
-  explicit constexpr AnimatedAny(const Builder& builder) : start{ builder.value }, now{ builder.value }, end{ builder.value }, duration{ builder.duration }, elaspedTime{ 0u },
-    isAnimating{ false }, onAnimationEnd{ builder.onAnimationEnd } { }
+  explicit constexpr AnimatedAny(const Builder& builder) : start{ builder.value }, now{ builder.value }, end{ builder.value }, duration{ builder.duration },
+    elaspedTime{ builder.duration }, isAnimating{ false }, onAnimationEnd{ builder.onAnimationEnd } {
+    builder.controller->subscribe(&isAnimating);
+  }
 
  public:
   constexpr const T& getStart() const {
@@ -83,13 +89,11 @@ template <typename T> struct AnimatedAny final {
     return end;
   }
 
-  constexpr Action set(const T& value) {
+  constexpr void set(const T& value) {
     start = now;
     end = value;
     elaspedTime = 0u;
-    if (isAnimating) return Action::NONE;
-    isAnimating = true;
-    return Action::START_ANIMATION;
+    isAnimating.set(true);
   }
 
   constexpr void teleport(const T& value) {
@@ -97,17 +101,17 @@ template <typename T> struct AnimatedAny final {
     now = value;
     end = value;
     elaspedTime = duration;
+    isAnimating.set(false);
   }
 
-  constexpr Action step(const unsigned int dt) {
-    if (elaspedTime == duration) return Action::NONE;
+  constexpr void step(const unsigned int dt) {
+    if (elaspedTime == duration) return;
     elaspedTime += dt;
     clamp(&elaspedTime, Range{ 0u, duration });
     now = static_cast<T>(start + (end - start) * (static_cast<float>(elaspedTime) / duration));
-    if (elaspedTime != duration) return Action::NONE;
+    if (elaspedTime != duration) return;
     onAnimationEnd();
-    isAnimating = false;
-    return Action::STOP_ANIMATION;
+    isAnimating.set(false);
   }
 };
 
