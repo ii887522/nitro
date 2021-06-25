@@ -5,8 +5,8 @@
 
 namespace ii887522::nitro {
 
-enum Action : unsigned int {
-  NONE = 0u, QUIT = 1u, CONSUME_EVENT = 2u, RETURN_FROM_CALLER = 4u, START_ANIMATION = 8u, STOP_ANIMATION = 16u
+enum class Action : unsigned int {
+  NONE, START_ANIMATION, STOP_ANIMATION
 };
 
 }  // namespace ii887522::nitro

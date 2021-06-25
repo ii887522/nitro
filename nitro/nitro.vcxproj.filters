@@ -107,6 +107,9 @@
     <ClInclude Include="src\main\Struct\Pair.h">
       <Filter>Header Files\Struct</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\Any\AnimationController.h">
+      <Filter>Header Files\Any</Filter>
+    </ClInclude>
     <ClInclude Include="src\main\Any\Enums.h">
       <Filter>Header Files\Any</Filter>
     </ClInclude>
@@ -153,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="src\main\Functions\fs_ext.cpp">
       <Filter>Source Files\Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test\Any\AnimationController.test.cpp">
+      <Filter>Test Source Files\Any</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
