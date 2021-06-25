@@ -6,7 +6,7 @@
 namespace ii887522::nitro {
 
 enum class Action : unsigned int {
-  NONE, START_ANIMATION, STOP_ANIMATION
+  NONE, QUIT, CONSUME_EVENT, RETURN_FROM_CALLER, START_ANIMATION, STOP_ANIMATION
 };
 
 }  // namespace ii887522::nitro
