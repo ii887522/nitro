@@ -76,12 +76,12 @@ template <typename T> struct AnimatedAny final {
     builder.controller->subscribe(isAnimating);
   }
 
+ public:
   explicit constexpr AnimatedAny(AnimatedAny&& that) : start{ that.start }, now{ that.now }, end{ that.end }, duration{ that.duration }, elaspedTime{ that.elaspedTime },
     isAnimating{ that.isAnimating }, onAnimationEnd{ that.onAnimationEnd } {
     that.isAnimating = nullptr;
   }
 
- public:
   constexpr const T& getStart() const {
     return start;
   }
