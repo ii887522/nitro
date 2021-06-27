@@ -68,12 +68,17 @@ template <typename T> struct AnimatedAny final {
   const unsigned int duration;
 
   unsigned int elaspedTime;
-  Reactive<bool> isAnimating;
+  Reactive<bool>* isAnimating;
   const function<void()> onAnimationEnd;
 
   explicit constexpr AnimatedAny(const Builder& builder) : start{ builder.value }, now{ builder.value }, end{ builder.value }, duration{ builder.duration },
-    elaspedTime{ builder.duration }, isAnimating{ false }, onAnimationEnd{ builder.onAnimationEnd } {
-    builder.controller->subscribe(&isAnimating);
+    elaspedTime{ builder.duration }, isAnimating{ new Reactive{ false } }, onAnimationEnd{ builder.onAnimationEnd } {
+    builder.controller->subscribe(isAnimating);
+  }
+
+  explicit constexpr AnimatedAny(AnimatedAny&& that) : start{ that.start }, now{ that.now }, end{ that.end }, duration{ that.duration }, elaspedTime{ that.elaspedTime },
+    isAnimating{ that.isAnimating }, onAnimationEnd{ that.onAnimationEnd } {
+    that.isAnimating = nullptr;
   }
 
  public:
@@ -93,7 +98,7 @@ template <typename T> struct AnimatedAny final {
     start = now;
     end = value;
     elaspedTime = 0u;
-    isAnimating.set(true);
+    isAnimating->set(true);
   }
 
   constexpr void teleport(const T& value) {
@@ -101,7 +106,7 @@ template <typename T> struct AnimatedAny final {
     now = value;
     end = value;
     elaspedTime = duration;
-    isAnimating.set(false);
+    isAnimating->set(false);
   }
 
   constexpr void step(const unsigned int dt) {
@@ -111,7 +116,11 @@ template <typename T> struct AnimatedAny final {
     now = static_cast<T>(start + (end - start) * (static_cast<float>(elaspedTime) / duration));
     if (elaspedTime != duration) return;
     onAnimationEnd();
-    isAnimating.set(false);
+    isAnimating->set(false);
+  }
+
+  ~AnimatedAny() {
+    delete isAnimating;
   }
 };
 
