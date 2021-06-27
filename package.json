@@ -1,6 +1,6 @@
 {
   "name": "nitro",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "It is a general purpose C++ library that can help developers create various kinds of applications in no time.",
   "scripts": {
     "install": "node build.js"
